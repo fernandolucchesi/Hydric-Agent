@@ -24,8 +24,6 @@ import jadex.micro.annotation.*;
 @Service
 @ProvidedServices(@ProvidedService(type = IDeliberately.class))
 public class TransformationAgentBDI implements IDeliberately {
-	// private final int FARMER = 0;
-	// private final int RANCHER = 1;
 	private final int POOR = 1;
 	private final int POOR_COOPERATIVE = 2;
 	private final int MIDDLECLASS = 3;
@@ -166,7 +164,7 @@ public class TransformationAgentBDI implements IDeliberately {
 	public IFuture<Void> deliberate(boolean drySeason, int neighbourhood) {
 		int aux = ControllerPanel.getInstance().selectedPriority;
 		Printer.print("transformationAgent" + index + " is deliberating...");
-		System.out.println(neighbourhood);
+		//System.out.println(neighbourhood);
 		
 		switch (aux)
 		{

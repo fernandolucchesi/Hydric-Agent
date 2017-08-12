@@ -55,14 +55,17 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	private int currentStep;
 	private int currentMonth;
 	private boolean isR1active;
+	private boolean isR2active;
 	private JLabel platformStatus;
 	private JLabel waterLevelInfo;
 	private JLabel currentStepInfo;
 	private JLabel isR1activeInfo;
+	private JLabel isR2activeInfo;
 	private JPanel buttons;
 	private JButton startStop;
 	private JButton nextStep;
 	private JButton toggleR1;
+	private JButton toggleR2;
 	private JRadioButton NTR, NRT, TNR, TRN, RNT, RTN;
 	private IExternalAccess platform;
 	private IComponentIdentifier TAID[];
@@ -75,6 +78,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		waterLevel = 10000;
 		currentStep = 0;
 		isR1active = false;
+		isR2active = false;
 		platformStatusInfo = "<html><p style=\"color:red;font-size:14px;padding-top:6px;\">" + "Platform is stopped"
 				+ "</p></html>";
 
@@ -92,6 +96,10 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		isR1activeInfo = new JLabel(
 				"<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Tax active:"
 						+ isR1active + "</p></html>");
+		
+		isR2activeInfo = new JLabel(
+				"<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Education active:"
+						+ isR2active + "</p></html>");
 
 		buttons = new JPanel();
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.PAGE_AXIS));
@@ -109,6 +117,11 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		toggleR1.addActionListener(this);
 		toggleR1.setEnabled(false);
 		
+		toggleR2 = new JButton("Toggle education");
+		toggleR2.addActionListener(this);
+		toggleR2.setEnabled(false);
+		
+		
 		configureGrid = new JButton ("Configure Grid");
 		configureGrid.addActionListener(this);
 		configureGrid.setEnabled(true);
@@ -119,6 +132,8 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		this.add(currentStepInfo);
 		this.add(isR1activeInfo);
 		this.add(Box.createRigidArea(new Dimension(5, 5)));
+		this.add(isR2activeInfo);
+		this.add(Box.createRigidArea(new Dimension(5, 5)));
 
 		buttons.add(startStop);
 		buttons.add(Box.createRigidArea(new Dimension(5, 5)));
@@ -126,8 +141,11 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		buttons.add(Box.createRigidArea(new Dimension(5, 5)));
 		buttons.add(toggleR1);
 		buttons.add(Box.createRigidArea(new Dimension(5, 5)));
+		buttons.add(toggleR2);
+		buttons.add(Box.createRigidArea(new Dimension(5, 5)));
+		
 		this.add(buttons);
-		RadioButton();
+//		RadioButton();
 		
 		
 		buttons.add(configureGrid);
@@ -178,7 +196,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			updateCurrentStepInfo();
 			currentMonth = currentStep%12;
 			
-			if (currentMonth >= 0 && currentMonth <= 4)
+			if (currentMonth >= 0 && currentMonth <= 5)
 				drySeason=false;
 			else
 				drySeason=true;
@@ -248,7 +266,9 @@ public class ControllerPanel extends JPanel implements ActionListener {
 
 						
 		} else if (arg0.getSource().equals(toggleR1)) {
-			toggleR1();
+			toggleR1(); 
+		} else if (arg0.getSource().equals(toggleR2)) {
+				toggleR2();
 		} else if (arg0.getSource().equals(configureGrid)) {
 			configureGrid();
 		}
@@ -311,12 +331,14 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			startStop.setText("Stop");
 			nextStep.setEnabled(true);
 			toggleR1.setEnabled(true);
+			toggleR2.setEnabled(true);
 			configureGrid.setEnabled(false);
 			SimulationScreen.getInstance().printSpaces();
 		} else {
 			startStop.setText("Start");
 			nextStep.setEnabled(false);
 			toggleR1.setEnabled(false);
+			toggleR2.setEnabled(false);
 			configureGrid.setEnabled(true);
 		}
 	}
@@ -448,19 +470,35 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	public boolean isR1Active() {
 		return isR1active;
 	}
-
+	
+	public boolean isR2Active() {
+		return isR2active;
+	}
+	
 	private void toggleR1() {
 		isR1active = !isR1active;
 		updateIsR1ActiveInfo();
 	}
-
+	
+	private void toggleR2() {
+		isR2active = !isR2active;
+		updateIsR2ActiveInfo();
+	}
+	
 	private void updateIsR1ActiveInfo() {
 		isR1activeInfo
 				.setText("<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Tax active:"
 						+ isR1active + "</p></html>");
 		this.repaint();
 	}
-
+	
+	private void updateIsR2ActiveInfo() {
+		isR2activeInfo
+				.setText("<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Education active:"
+						+ isR2active + "</p></html>");
+		this.repaint();
+	}
+	
 	public synchronized void diminishWaterLevel(int amount) {
 
 		waterLevel = waterLevel - amount;
