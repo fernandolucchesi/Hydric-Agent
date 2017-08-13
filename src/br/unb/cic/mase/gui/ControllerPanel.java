@@ -1,6 +1,6 @@
 package br.unb.cic.mase.gui;
 
-import java.awt.Dimension;
+//import java.awt.Dimension;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ import java.awt.event.ItemEvent;
 
 import javax.swing.JFrame;
 
-
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 
@@ -51,7 +51,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	
 	private static ControllerPanel instance;
 	private String platformStatusInfo;
-	private int waterLevel;
+	private double waterLevel;
 	private int currentStep;
 	private int currentMonth;
 	private boolean isR1active;
@@ -499,14 +499,14 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		this.repaint();
 	}
 	
-	public synchronized void diminishWaterLevel(int amount) {
+	public synchronized void diminishWaterLevel(double amount) {
 
 		waterLevel = waterLevel - amount;
 		updateWaterLevelInfo();
 
 	}
 	
-	public synchronized void increaseWaterLevel(int amount) {
+	public synchronized void increaseWaterLevel(double amount) {
 
 		waterLevel = waterLevel + amount;
 		updateWaterLevelInfo();
@@ -516,7 +516,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	private void updateWaterLevelInfo() {
 		waterLevelInfo.setText(
 				"<html><p style=\"color:green;font-size:14px;padding-top:3px;padding-bottom:3px;\">Water Level:"
-						+ waterLevel + "</p></html>");
+						+ Math.round(waterLevel) + "</p></html>");
 		this.repaint();
 	}
 
