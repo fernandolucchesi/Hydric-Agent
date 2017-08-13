@@ -163,7 +163,55 @@ public class TransformationAgentBDI implements IDeliberately {
 //		return false;
 //	}
 //	
-	private boolean checkRain (boolean drySeason) {
+	
+	private void checkEducation()
+	{
+		int randomNumber = generateRandom();
+		if (ControllerPanel.getInstance().isR2Active()) {
+			if (type == POOR || type == POOR_COOPERATIVE)
+			{
+				if (randomNumber<=80)
+				{
+					currentExploration -= 4.74;
+					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+				}
+				else {
+					currentExploration += 0;
+					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+				}
+			}
+			else if (type == MIDDLECLASS || type == MIDDLECLASS_COOPERATIVE)
+			{
+				if (randomNumber<=77)
+				{
+					currentExploration -= 4.26;
+					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+				}
+				else {
+					currentExploration += 0;
+					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+				}
+			} 
+			else if (type == RICH || type == RICH_COOPERATIVE)
+			{
+				if (randomNumber<=71)
+				{
+					currentExploration -= 3.38;
+					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+				}
+				else {
+					currentExploration += 0;
+					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+				}
+			}
+			
+			
+		}
+		
+	}
+	
+	
+	private void checkRain (boolean drySeason) {
 		int randomNumber = generateRandom();
 		if (drySeason == true)
 		{	
@@ -222,7 +270,7 @@ public class TransformationAgentBDI implements IDeliberately {
 				}
 				
 			}
-			return true;
+			
 		}
 		else
 		{
@@ -280,7 +328,7 @@ public class TransformationAgentBDI implements IDeliberately {
 					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
-			return false;
+			
 		}
 	}
 	
@@ -298,7 +346,7 @@ public class TransformationAgentBDI implements IDeliberately {
 		
 		
 		checkRain (drySeason);
-		
+		checkEducation();
 		
 //		switch (aux)
 //		{
