@@ -112,7 +112,7 @@ public class TransformationAgentBDI implements IDeliberately {
 		return this.type;
 	}
 	
-	private int generateRandom()
+	private synchronized int generateRandom()
 	{
 		Random rand = new Random();
 		return (rand.nextInt(100));
@@ -164,7 +164,7 @@ public class TransformationAgentBDI implements IDeliberately {
 //	}
 //	
 	
-	private void checkEducation()
+	private  void checkEducation()
 	{
 		int randomNumber = generateRandom();
 		if (ControllerPanel.getInstance().isR2Active()) {
@@ -184,7 +184,7 @@ public class TransformationAgentBDI implements IDeliberately {
 			{
 				if (randomNumber<=77)
 				{
-					currentExploration -= 4.26;
+					currentExploration -= 4.19;
 					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else {
@@ -211,7 +211,7 @@ public class TransformationAgentBDI implements IDeliberately {
 	}
 	
 	
-	private void checkRain (boolean drySeason) {
+	private  void checkRain (boolean drySeason) {
 		int randomNumber = generateRandom();
 		if (drySeason == true)
 		{	
@@ -332,13 +332,15 @@ public class TransformationAgentBDI implements IDeliberately {
 		}
 	}
 	
-	public IFuture<Void> deliberate(boolean drySeason, int neighbourhood) {
+	public IFuture<Void> deliberate(boolean drySeason) {
 //		int aux = ControllerPanel.getInstance().selectedPriority;
 		
 		Printer.print("transformationAgent" + index + " is deliberating...");
 		//System.out.println(neighbourhood);
 		
 		//checkTax();
+		
+		
 		
 		if (type == POOR || type == POOR_COOPERATIVE) currentExploration = 16.9;
 		else if (type == MIDDLECLASS || type == MIDDLECLASS_COOPERATIVE) currentExploration = 17.8;
@@ -347,46 +349,6 @@ public class TransformationAgentBDI implements IDeliberately {
 		
 		checkRain (drySeason);
 		checkEducation();
-		
-//		switch (aux)
-//		{
-//			case 1: //NTR
-//				if (!checkNeighbourhood (neighbourhood))
-//					if (!checkTax())
-//						if (!checkRain(drySeason))
-//						{}
-//				break;
-//			
-//			case 2: //NRT
-//				if (!checkNeighbourhood (neighbourhood))
-//					if (!checkRain(drySeason))
-//						if (!checkTax()){}
-//				break;
-//			
-//			case 3: //TNR
-//				if (!checkTax())
-//					if (!checkNeighbourhood (neighbourhood))
-//						if (!checkRain(drySeason)){}
-//				break;
-//				
-//			case 4: //TRN
-//				if (!checkTax())
-//					if (!checkRain(drySeason))
-//						if (!checkNeighbourhood (neighbourhood)){}
-//				break;
-//			case 5: //RNT
-//				if (!checkRain(drySeason))
-//					if (!checkNeighbourhood (neighbourhood))
-//						if (!checkTax()){}						
-//				break;
-//			case 6: //RTN
-//				if (!checkRain(drySeason))
-//					if (!checkTax())
-//						if (!checkNeighbourhood (neighbourhood)){}
-//				break;
-//			default:
-//				
-//		}
 				
 				
 		return new Future<Void>();
@@ -403,6 +365,7 @@ public class TransformationAgentBDI implements IDeliberately {
 			this.type = RICH;
 		}
 		ControllerPanel.getInstance().diminishWaterLevel(currentExploration);
+		ControllerPanel.getInstance().updateDataForReport(currentExploration, this.type);
 //		System.out.println(currentExploration);
 	}
 
@@ -418,7 +381,10 @@ public class TransformationAgentBDI implements IDeliberately {
 			this.type = RICH_COOPERATIVE;
 		}
 		ControllerPanel.getInstance().diminishWaterLevel(currentExploration);
+		ControllerPanel.getInstance().updateDataForReport(currentExploration, this.type);
 //		System.out.println(currentExploration);
 	}
+
+	
 
 }

@@ -181,6 +181,7 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 		System.out.print("]");
 		System.out.println();
 	}
+	
 	public void setSpaces(int i, int j, int type){
 		this.spaces[i][j]=type;
 	}
