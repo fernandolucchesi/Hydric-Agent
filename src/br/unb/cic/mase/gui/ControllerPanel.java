@@ -318,7 +318,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		} else if (arg0.getSource().equals(configureGrid)) {
 			configureGrid();
 		} else if (arg0.getSource().equals(report)) {
-			generateReport();
+//			generateReport();
 		}
 	}
 	/*

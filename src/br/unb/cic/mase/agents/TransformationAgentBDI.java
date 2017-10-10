@@ -115,7 +115,9 @@ public class TransformationAgentBDI implements IDeliberately {
 	private synchronized int generateRandom()
 	{
 		Random rand = new Random();
+//		System.out.println("Random = " + rand.nextInt(100));
 		return (rand.nextInt(100));
+		
 	}
 //	
 //	private boolean checkNeighbourhood (int neighbourhood) 
@@ -173,11 +175,11 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=80)
 				{
 					currentExploration -= 4.74;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else {
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
 			else if (type == MIDDLECLASS || type == MIDDLECLASS_COOPERATIVE)
@@ -185,11 +187,11 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=77)
 				{
 					currentExploration -= 4.19;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else {
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			} 
 			else if (type == RICH || type == RICH_COOPERATIVE)
@@ -197,11 +199,11 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=71)
 				{
 					currentExploration -= 3.38;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else {
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
 			
@@ -220,16 +222,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=77)
 				{
 					currentExploration -= 0.47;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=94)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 0.44;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
 			
@@ -238,16 +240,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=75)
 				{
 					currentExploration -= 0.96;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=93)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 1.2;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				
 			}
@@ -257,16 +259,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=71)
 				{
 					currentExploration -= 1.1;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=85)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 1.2;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+//					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				
 			}
@@ -279,16 +281,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=6)
 				{
 					currentExploration -= 0.58;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=23)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 0.39;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
 			
@@ -297,16 +299,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=9)
 				{
 					currentExploration -= 2.01;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=16)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 1.26;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				
 			}
@@ -316,16 +318,16 @@ public class TransformationAgentBDI implements IDeliberately {
 				if (randomNumber<=14)
 				{
 					currentExploration -= 0.48;
-					bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();	
 				}
 				else if (randomNumber<=28)
 				{
 					currentExploration += 0;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+				//	bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 				else {
 					currentExploration += 1.6;
-					bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
+					//bdiFeature.dispatchTopLevelGoal(new UseWater()).get();	
 				}
 			}
 			
@@ -342,14 +344,23 @@ public class TransformationAgentBDI implements IDeliberately {
 		
 		
 		
-		if (type == POOR || type == POOR_COOPERATIVE) currentExploration = 16.9;
+		if (type == POOR || type == POOR_COOPERATIVE) currentExploration = 16.9 ;
 		else if (type == MIDDLECLASS || type == MIDDLECLASS_COOPERATIVE) currentExploration = 17.8;
 		else currentExploration = 17.4;
 		
 		
 		checkRain (drySeason);
 		checkEducation();
-				
+		
+		if ( 
+			((type == POOR || type == POOR_COOPERATIVE) &&  currentExploration < 16.9) ||
+			((type == MIDDLECLASS || type == MIDDLECLASS_COOPERATIVE) && currentExploration < 17.8) ||
+			((type == RICH || type == RICH_COOPERATIVE) && currentExploration < 17.4) 
+			) 	bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();
+		else bdiFeature.dispatchTopLevelGoal(new UseWater()).get();
+			
+		
+		
 				
 		return new Future<Void>();
 	}
