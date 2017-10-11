@@ -16,13 +16,16 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 	private static SimulationScreen instance;
 	private int[][] spaces;
 	private final int UNOCCUPIED = 0;
-	private final int POOR = 1;
-	private final int POOR_COOPERATIVE = 2;
-	private final int MIDDLECLASS = 3;
-	private final int MIDDLECLASS_COOPERATIVE = 4;
-	private final int RICH = 5;
-	private final int RICH_COOPERATIVE = 6;
-	private int[] states = { UNOCCUPIED, POOR, POOR_COOPERATIVE, MIDDLECLASS, MIDDLECLASS_COOPERATIVE, RICH, RICH_COOPERATIVE};
+	private final int BAIXA_FI = 1;
+	private final int BAIXA_FI_COOP = 2;
+	private final int BAIXA_FC = 3;
+	private final int BAIXA_FC_COOP = 4;
+	private final int BAIXA_MC = 5;
+	private final int BAIXA_MC_COOP = 6;
+	private final int BAIXA_SC = 7;
+	private final int BAIXA_SC_COOP = 8;
+	
+	private int[] states = { UNOCCUPIED, BAIXA_FI, BAIXA_FI_COOP, BAIXA_FC, BAIXA_FC_COOP, BAIXA_MC, BAIXA_MC_COOP, BAIXA_SC, BAIXA_SC_COOP};
 	private int columns;
 	private int rows;
 	private int height;
@@ -75,19 +78,66 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 				if (spaces != null) {
 					if (spaces[i][j] == UNOCCUPIED) {
 						g.setColor(new Color(255, 255, 255));
-					} else if (spaces[i][j] == POOR) {
-						g.setColor(new Color(0, 102, 0));
-					} else if (spaces[i][j] == POOR_COOPERATIVE) {
-						g.setColor(new Color(0, 255, 0));
-					} else if (spaces[i][j] == MIDDLECLASS) {
-						g.setColor(new Color(0, 0, 255));
-					} else if (spaces[i][j] == MIDDLECLASS_COOPERATIVE) {
-						g.setColor(new Color(102, 255, 255));
-					} else if (spaces[i][j] == RICH) {
-						g.setColor(new Color(255, 0, 0));
-					} else if (spaces[i][j] == RICH_COOPERATIVE) {
-							g.setColor(new Color(255, 0, 255));
 					}
+					// RENDA BAIXA
+					else if (spaces[i][j] == BAIXA_FI) {
+						g.setColor(new Color(0,100,0));
+					} else if (spaces[i][j] == BAIXA_FC) {
+						g.setColor(new Color(0,150,0));
+					} else if (spaces[i][j] == BAIXA_MC) {
+						g.setColor(new Color(0,200,0));
+					} else if (spaces[i][j] == BAIXA_SC) {
+						g.setColor(new Color(0,255,0));
+					} else if (spaces[i][j] == BAIXA_FI_COOP) {
+						g.setColor(new Color(0, 0, 100));
+					} else if (spaces[i][j] == BAIXA_FC_COOP) {
+							g.setColor(new Color(0, 0, 150));
+					} else if (spaces[i][j] == BAIXA_MC_COOP) {
+						g.setColor(new Color(0, 0, 200));
+					} else if (spaces[i][j] == BAIXA_SC_COOP) {
+						g.setColor(new Color(0, 0, 255));
+					}
+					// RENDA MEDIA
+					/*else if (spaces[i][j] == BAIXA_FI) {
+						g.setColor(new Color(0, 102, 0));
+					} else if (spaces[i][j] == BAIXA_FI_COOP) {
+						g.setColor(new Color(0, 255, 0));
+					} else if (spaces[i][j] == BAIXA_FC) {
+						g.setColor(new Color(0, 0, 255));
+					} else if (spaces[i][j] == BAIXA_FC_COOP) {
+						g.setColor(new Color(102, 255, 255));
+					} else if (spaces[i][j] == BAIXA_MC) {
+						g.setColor(new Color(255, 0, 0));
+					} else if (spaces[i][j] == BAIXA_MC_COOP) {
+							g.setColor(new Color(255, 0, 255));
+					} else if (spaces[i][j] == BAIXA_SC) {
+						g.setColor(new Color(255, 0, 255));
+					} else if (spaces[i][j] == BAIXA_SC_COOP) {
+						g.setColor(new Color(255, 0, 255));
+					}*/
+					
+					// RENDA ALTA
+					/*
+					else if (spaces[i][j] == BAIXA_FI) {
+						g.setColor(new Color(0, 102, 0));
+					} else if (spaces[i][j] == BAIXA_FI_COOP) {
+						g.setColor(new Color(0, 255, 0));
+					} else if (spaces[i][j] == BAIXA_FC) {
+						g.setColor(new Color(0, 0, 255));
+					} else if (spaces[i][j] == BAIXA_FC_COOP) {
+						g.setColor(new Color(102, 255, 255));
+					} else if (spaces[i][j] == BAIXA_MC) {
+						g.setColor(new Color(255, 0, 0));
+					} else if (spaces[i][j] == BAIXA_MC_COOP) {
+							g.setColor(new Color(255, 0, 255));
+					} else if (spaces[i][j] == BAIXA_SC) {
+						g.setColor(new Color(255, 0, 255));
+					} else if (spaces[i][j] == BAIXA_SC_COOP) {
+						g.setColor(new Color(255, 0, 255));
+					}*/
+					
+					
+					
 					g.fillRect(i * cellWidth, j * cellHeight, cellWidth, cellHeight);
 				}
 

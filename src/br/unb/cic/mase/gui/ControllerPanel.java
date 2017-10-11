@@ -7,29 +7,26 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.locks.ReentrantLock;
+
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.JTextArea;
+
 import javax.swing.ButtonGroup;
 import java.awt.event.ItemListener;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+
 import java.awt.event.ItemEvent;
 
-import javax.swing.JFrame;
-
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -38,18 +35,16 @@ import br.unb.cic.mase.Util.Printer;
 import br.unb.cic.mase.agents.IDeliberately;
 import br.unb.cic.mase.agents.PlatformFactory;
 import jadex.bridge.IComponentIdentifier;
-import jadex.bridge.IComponentStep;
+
 import jadex.bridge.IExternalAccess;
-import jadex.bridge.IInternalAccess;
-import jadex.bridge.fipa.SFipa;
+
+
 import jadex.bridge.service.RequiredServiceInfo;
 import jadex.bridge.service.search.SServiceProvider;
 import jadex.bridge.service.types.cms.CreationInfo;
 import jadex.bridge.service.types.cms.IComponentManagementService;
-import jadex.commons.future.IFuture;
-import jadex.commons.future.ITuple2Future;
 import java.io.IOException;
-import javax.swing.JLabel;
+
 
 public class ControllerPanel extends JPanel implements ActionListener {
 
@@ -93,12 +88,16 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	public static int agentsCount = 0;
 	private static int barrier = 0;
 
-	private final int POOR = 1;
-	private final int POOR_COOPERATIVE = 2;
-	private final int MIDDLECLASS = 3;
-	private final int MIDDLECLASS_COOPERATIVE = 4;
-	private final int RICH = 5;
-	private final int RICH_COOPERATIVE = 6;
+	private final int BAIXA_FI = 1;
+	private final int BAIXA_FI_COOP = 2;
+	private final int BAIXA_FC = 3;
+	private final int BAIXA_FC_COOP = 4;
+	private final int BAIXA_MC = 5;
+	private final int BAIXA_MC_COOP = 6;
+	private final int BAIXA_SC = 7;
+	private final int BAIXA_SC_COOP = 8;
+	
+	
 
 	public ControllerPanel() {
 		waterLevel = 10000;
@@ -463,7 +462,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 					// NOTE: write something here if you need to recover from
 					// formatting errors
 				}
-				;
+
 			}
 
 			SimulationScreen.getInstance().setColumnsAndRows(rows, columns);
@@ -600,25 +599,25 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	}
 
 	public synchronized void updateDataForReport(double amount, int agentType) {
-		if (agentType == POOR) {
+		if (agentType == BAIXA_FI) {
 			totalConsumptionP += amount;
-		} else if (agentType == POOR_COOPERATIVE) {
+		} else if (agentType == BAIXA_FI_COOP) {
 			totalConsumptionP += amount;
 			totalCooperationP++;
-		} else if (agentType == MIDDLECLASS) {
+		} else if (agentType == BAIXA_FC) {
 			totalConsumptionM += amount;
-		} else if (agentType == MIDDLECLASS_COOPERATIVE) {
+		} else if (agentType == BAIXA_FC_COOP) {
 			totalConsumptionM += amount;
 			totalCooperationM++;
-		} else if (agentType == RICH) {
+		} else if (agentType == BAIXA_MC) {
 			totalConsumptionR += amount;
-		} else if (agentType == RICH_COOPERATIVE) {
+		} else if (agentType == BAIXA_MC_COOP) {
 			totalConsumptionR += amount;
 			totalCooperationR++;
 		}
 
 		if (++barrier == agentsCount) {
-			generateReport();
+			//generateReport();
 			totalConsumptionP = 0;
 			totalConsumptionM = 0;
 			totalConsumptionR = 0;
