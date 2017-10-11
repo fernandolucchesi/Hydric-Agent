@@ -617,7 +617,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		}
 
 		if (++barrier == agentsCount) {
-			//generateReport();
+			generateReport();
 			totalConsumptionP = 0;
 			totalConsumptionM = 0;
 			totalConsumptionR = 0;

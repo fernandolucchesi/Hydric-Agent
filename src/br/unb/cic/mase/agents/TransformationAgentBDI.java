@@ -31,6 +31,8 @@ public class TransformationAgentBDI implements IDeliberately {
 	private final int BAIXA_FC_COOP = 4;
 	private final int BAIXA_MC = 5;
 	private final int BAIXA_MC_COOP = 6;
+	private final int BAIXA_SC = 7;
+	private final int BAIXA_SC_COOP = 8;
 
 	
 	@Agent
@@ -154,7 +156,7 @@ public class TransformationAgentBDI implements IDeliberately {
 		Printer.print("transformationAgent" + index + " is deliberating...");
 		
 		int rand = generateRandom();
-		
+		System.out.println("Numero Random: " + rand);
 		//CLASSE BAIXA
 		if (this.type > 0 && this.type <= 8) {
 			
@@ -163,9 +165,11 @@ public class TransformationAgentBDI implements IDeliberately {
 			//CHUVA
 			if (!drySeason && !checkEducation() && !checkTax())
 			{
-				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new UseWater()).get();
+				else bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
 			}
+			else ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+				
 		}
 		return new Future<Void>();
 	}
@@ -175,20 +179,45 @@ public class TransformationAgentBDI implements IDeliberately {
 	{
 		//CLASSE BAIXA
 		if (this.type > 0 && this.type <= 8) {
-			//currentExploration -= 
+			this.currentExploration -= 0.774;
 		}
-		
 	}
+	
+	private void washingMachine()
+	{
+		//CLASSE BAIXA
+		if (this.type > 0 && this.type <= 8) {
+			this.currentExploration -= 1.2;
+		}
+	}
+	
+	private void tap()
+	{
+		//CLASSE BAIXA
+		if (this.type > 0 && this.type <= 8) {
+			this.currentExploration -= 5.32;
+		}
+	}
+	
+	
 	
 /******************************* PLANOS *********************************/	
 	
-	@Plan(trigger = @Trigger(goals = SaveRainySeason.class))
+	@Plan(trigger = @Trigger(goals = (SaveRainySeason.class)))
 	public void saveFewWater() 
 	{
-		hose();
-		//washingMachine();
-		//tap();
-		
+		System.out.println("chegou aqui");
+		//CLASSE BAIXA
+		if (this.type > 0 && this.type <= 8) {
+			hose();
+			washingMachine();
+			tap();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+			else if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+			else if (this.type == BAIXA_MC) this.type = BAIXA_MC_COOP;
+			else if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
 	@Plan(trigger = @Trigger(goals = (UseWater.class)))
