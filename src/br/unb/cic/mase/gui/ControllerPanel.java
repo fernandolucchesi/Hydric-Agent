@@ -228,7 +228,7 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			updateCurrentStepInfo();
 			currentMonth = currentStep % 12;
 
-			if (currentMonth >= 0 && currentMonth <= 5)
+			if (currentMonth >= 10 && currentMonth <= 4)
 				drySeason = false;
 			else
 				drySeason = true;
@@ -361,12 +361,15 @@ public class ControllerPanel extends JPanel implements ActionListener {
 
 	private void setIsPlatformStarted(boolean isPlatFormStarted) {
 		if (isPlatFormStarted == true) {
-			startStop.setText("Stop");
+			
 			nextStep.setEnabled(true);
 			toggleR1.setEnabled(true);
 			toggleR2.setEnabled(true);
 			configureGrid.setEnabled(false);
 			SimulationScreen.getInstance().printSpaces();
+			currentStep = 0;
+			startStop.setText("Stop");
+			
 		} else {
 			startStop.setText("Start");
 			nextStep.setEnabled(false);
