@@ -57,6 +57,8 @@ public class TransformationAgentBDI implements IDeliberately {
 	@Belief
 	private boolean ready;
 
+	/************************** Agente **************************/
+	
 	@AgentCreated
 	public void created() {
 		Printer.print("created: " + this);
@@ -85,6 +87,8 @@ public class TransformationAgentBDI implements IDeliberately {
 		}
 	}
 
+	/**************************** Objetivos **********************************/
+	
 	@Goal
 	public class Deliberate {
 
@@ -99,7 +103,17 @@ public class TransformationAgentBDI implements IDeliberately {
 	public class SaveWater {
 
 	}
+	
+	@Goal
+	public class SaveRainySeason {
 
+	}
+
+	@Goal
+	public class WasteRainySeason {
+
+	}
+	
 	public int getPositionX(){
 		return this.positionX;
 	}
@@ -111,6 +125,8 @@ public class TransformationAgentBDI implements IDeliberately {
 	public int getType(){
 		return this.type;
 	}
+	
+	/**************** METODOS AUX/CHECAGEM DE CRENÇAS *********************/
 	
 	private synchronized int generateRandom()
 	{
@@ -131,75 +147,63 @@ public class TransformationAgentBDI implements IDeliberately {
 		else return false;		
 	}
 	
-	
-	private boolean checkRain (boolean drySeason) {
-		if (drySeason == true) return true;
-		else return false;
-	}
+	/************************** COGNIÇÃO *********************************/		
 	
 	public IFuture<Void> deliberate(boolean drySeason) {
 		
 		Printer.print("transformationAgent" + index + " is deliberating...");
 		
-		if (type == BAIXA_FI || type == BAIXA_FI_COOP) {
+		int rand = generateRandom();
+		
+		//CLASSE BAIXA
+		if (this.type > 0 && this.type <= 8) {
+			
 			currentExploration = 16.2;
-			checkTax();
-			if (currentExploration == 16.2)
-			{
-				checkEducation();
-			}
-			checkRain (drySeason);
-		}
-		else if (type == BAIXA_FC || type == BAIXA_FC_COOP) {
-			currentExploration = 17.5;
-			checkTax();
-			if (currentExploration == 17.5)
-			{
-				checkEducation();
-			}
-			checkRain (drySeason);
 			
-		}
-		else {
-			currentExploration = 17.4;
-			checkEducation();
-			if (currentExploration == 17.5)
+			//CHUVA
+			if (!drySeason && !checkEducation() && !checkTax())
 			{
-				checkTax();
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 			}
-			checkRain (drySeason);
 		}
-		
-		
-		
-		
-		if ( 
-			((type == BAIXA_FI || type == BAIXA_FI_COOP) &&  currentExploration < 16.2) ||
-			((type == BAIXA_FC || type == BAIXA_FC_COOP) && currentExploration < 17.5) ||
-			((type == BAIXA_MC || type == BAIXA_MC_COOP) && currentExploration < 17.4) 
-			) 	bdiFeature.dispatchTopLevelGoal(new SaveWater()).get();
-		else bdiFeature.dispatchTopLevelGoal(new UseWater()).get();
-			
 		return new Future<Void>();
 	}
 
+/******************************* AÇÕES *********************************/
+	private void hose()
+	{
+		//CLASSE BAIXA
+		if (this.type > 0 && this.type <= 8) {
+			//currentExploration -= 
+		}
+		
+	}
+	
+/******************************* PLANOS *********************************/	
+	
+	@Plan(trigger = @Trigger(goals = SaveRainySeason.class))
+	public void saveFewWater() 
+	{
+		hose();
+		//washingMachine();
+		//tap();
+		
+	}
+	
 	@Plan(trigger = @Trigger(goals = (UseWater.class)))
 	public void useWaterNormally() {
 		Printer.print("transformationAgent" + index + " decided to use water normally.");
-		if (this.type == BAIXA_FI_COOP && currentExploration >= 16.2) {
+		if (this.type == BAIXA_FI_COOP && this.currentExploration >= 16.2) {
 			this.type = BAIXA_FI;
-		} else if (this.type == BAIXA_FC_COOP && currentExploration >= 17.5){
+		} else if (this.type == BAIXA_FC_COOP && this.currentExploration >= 17.5){
 			this.type = BAIXA_FC;
-		} else if (this.type == BAIXA_MC_COOP && currentExploration >= 17.4){
+		} else if (this.type == BAIXA_MC_COOP && this.currentExploration >= 17.4){
 			this.type = BAIXA_MC;
 		}
-		ControllerPanel.getInstance().diminishWaterLevel(currentExploration);
-		ControllerPanel.getInstance().updateDataForReport(currentExploration, this.type);
-//		System.out.println(currentExploration);
+		ControllerPanel.getInstance().diminishWaterLevel(this.currentExploration);
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
-
-	
-	//@Plan(trigger = @Trigger(goals=))
 	
 	
 	@Plan(trigger = @Trigger(goals = (SaveWater.class)))
@@ -215,9 +219,5 @@ public class TransformationAgentBDI implements IDeliberately {
 		}
 		ControllerPanel.getInstance().diminishWaterLevel(currentExploration);
 		ControllerPanel.getInstance().updateDataForReport(currentExploration, this.type);
-//		System.out.println(currentExploration);
 	}
-
-	
-
 }
