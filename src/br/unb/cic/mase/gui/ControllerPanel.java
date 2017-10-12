@@ -80,11 +80,14 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	public double consumption_BAIXA_FI = 0;
 	public double consumption_BAIXA_FC = 0;
 	public double consumption_BAIXA_MC = 0;
+	public double consumption_BAIXA_SC = 0;
 
+	
 	public int totalCooperation_BAIXA_FI = 0;
 	public int totalCooperation_BAIXA_FC = 0;
 	public int totalCooperation_BAIXA_MC = 0;
-
+	public int totalCooperation_BAIXA_SC = 0;
+	
 	public static int agentsCount = 0;
 	private static int barrier = 0;
 
@@ -599,6 +602,11 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		} else if (agentType == BAIXA_MC_COOP) {
 			consumption_BAIXA_MC += amount;
 			totalCooperation_BAIXA_MC++;
+		} else if (agentType == BAIXA_SC) {
+			consumption_BAIXA_SC += amount;
+		} else if (agentType == BAIXA_SC_COOP) {
+			consumption_BAIXA_SC += amount;
+			totalCooperation_BAIXA_SC++;
 		}
 
 		if (++barrier == agentsCount) {
@@ -606,9 +614,11 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			consumption_BAIXA_FI = 0;
 			consumption_BAIXA_FC = 0;
 			consumption_BAIXA_MC = 0;
+			consumption_BAIXA_SC = 0;
 			totalCooperation_BAIXA_FI = 0;
 			totalCooperation_BAIXA_FC = 0;
 			totalCooperation_BAIXA_MC = 0;
+			totalCooperation_BAIXA_SC = 0;
 			barrier = 0;
 			nextStep.setEnabled(true);
 		}
@@ -669,9 +679,9 @@ public class ControllerPanel extends JPanel implements ActionListener {
 				break;
 			}
 			pw.print("\t\t" + String.format("%.02f", consumption_BAIXA_FI) + "\t" + totalCooperation_BAIXA_FI + "\t");
-			pw.print("\t" + String.format("%.02f", consumption_BAIXA_FC) + "\t" + totalCooperation_BAIXA_FC + "\t");
-			pw.println("\t" + String.format("%.02f", consumption_BAIXA_MC) + "\t" + totalCooperation_BAIXA_MC);
-
+			pw.print(String.format("%.02f", consumption_BAIXA_FC) + "\t" + totalCooperation_BAIXA_FC + "\t");
+			pw.print(String.format("%.02f", consumption_BAIXA_MC) + "\t" + totalCooperation_BAIXA_MC + "\t");
+			pw.println(String.format("%.02f", consumption_BAIXA_SC) + "\t" + totalCooperation_BAIXA_SC);
 			pw.close();
 
 			System.out.println("Data successfully appended at the end of file");
