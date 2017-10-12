@@ -77,13 +77,13 @@ public class ControllerPanel extends JPanel implements ActionListener {
 
 	public int selectedPriority = 1;
 
-	public double totalConsumptionP = 0;
-	public double totalConsumptionM = 0;
-	public double totalConsumptionR = 0;
+	public double consumption_BAIXA_FI = 0;
+	public double consumption_BAIXA_FC = 0;
+	public double consumption_BAIXA_MC = 0;
 
-	public int totalCooperationP = 0;
-	public int totalCooperationM = 0;
-	public int totalCooperationR = 0;
+	public int totalCooperation_BAIXA_FI = 0;
+	public int totalCooperation_BAIXA_FC = 0;
+	public int totalCooperation_BAIXA_MC = 0;
 
 	public static int agentsCount = 0;
 	private static int barrier = 0;
@@ -189,7 +189,6 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 
 		boolean drySeason;
-		// int neighbourhood;
 
 		if (arg0.getSource().equals(startStop)) {
 			if (platform == null) {
@@ -227,11 +226,13 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			updateCurrentStepInfo();
 			currentMonth = currentStep % 12;
 
-			if (currentMonth >= 10 && currentMonth <= 4)
+			if ((currentMonth >= 0 && currentMonth <= 4) || (currentMonth >= 10))
 				drySeason = false;
 			else
 				drySeason = true;
 
+//			System.out.println (drySeason);
+			
 			switch (currentMonth) {
 			case 1: // January
 				updatePlatformStatusInfo(
@@ -320,22 +321,6 @@ public class ControllerPanel extends JPanel implements ActionListener {
 //			generateReport();
 		}
 	}
-	/*
-	 * private int checkNeighbourhood (int positionX, int positionY) { int value
-	 * = 0; int spaces[][] = SimulationScreen.getInstance().getSpaces(); int
-	 * columns = SimulationScreen.getInstance().getColumns(); int rows =
-	 * SimulationScreen.getInstance().getRows();
-	 * 
-	 * for (int i=-1; i<2; i++) { for (int j=-1; j<2; j++) { if ( (positionX+i <
-	 * rows) && (positionY+j < columns) && (positionX+i >= 0) && (positionY+j >=
-	 * 0) && (positionX!=positionX+i || positionY!=positionY+j)) { if
-	 * (spaces[positionX+i][positionY+j] == 2 ||
-	 * spaces[positionX+i][positionY+j] == 4 || spaces[positionX+i][positionY+j]
-	 * == 6) //SE FOR COOLABORATIVO, TEM QUE MUDAR ISSO DEPOIS! {
-	 * //System.out.println("Spaces[" + (positionX+i) + "][" + (positionY+j) +
-	 * "]"); value++; } else if (spaces[positionX+i][positionY+j]!=0) { value--;
-	 * } } } } return value; }
-	 */
 
 	private void updateSpaces(int i, int j, int newValue) {
 		SimulationScreen.getInstance().setSpaces(i, j, newValue);
@@ -600,30 +585,30 @@ public class ControllerPanel extends JPanel implements ActionListener {
 
 	public synchronized void updateDataForReport(double amount, int agentType) {
 		if (agentType == BAIXA_FI) {
-			totalConsumptionP += amount;
+			consumption_BAIXA_FI += amount;
 		} else if (agentType == BAIXA_FI_COOP) {
-			totalConsumptionP += amount;
-			totalCooperationP++;
+			consumption_BAIXA_FI += amount;
+			totalCooperation_BAIXA_FI++;
 		} else if (agentType == BAIXA_FC) {
-			totalConsumptionM += amount;
+			consumption_BAIXA_FC += amount;
 		} else if (agentType == BAIXA_FC_COOP) {
-			totalConsumptionM += amount;
-			totalCooperationM++;
+			consumption_BAIXA_FC += amount;
+			totalCooperation_BAIXA_FC++;
 		} else if (agentType == BAIXA_MC) {
-			totalConsumptionR += amount;
+			consumption_BAIXA_MC += amount;
 		} else if (agentType == BAIXA_MC_COOP) {
-			totalConsumptionR += amount;
-			totalCooperationR++;
+			consumption_BAIXA_MC += amount;
+			totalCooperation_BAIXA_MC++;
 		}
 
 		if (++barrier == agentsCount) {
 			generateReport();
-			totalConsumptionP = 0;
-			totalConsumptionM = 0;
-			totalConsumptionR = 0;
-			totalCooperationP = 0;
-			totalCooperationM = 0;
-			totalCooperationR = 0;
+			consumption_BAIXA_FI = 0;
+			consumption_BAIXA_FC = 0;
+			consumption_BAIXA_MC = 0;
+			totalCooperation_BAIXA_FI = 0;
+			totalCooperation_BAIXA_FC = 0;
+			totalCooperation_BAIXA_MC = 0;
 			barrier = 0;
 			nextStep.setEnabled(true);
 		}
@@ -683,9 +668,9 @@ public class ControllerPanel extends JPanel implements ActionListener {
 				pw.print("Dez");
 				break;
 			}
-			pw.print("\t\t" + String.format("%.02f", totalConsumptionP) + "\t" + totalCooperationP + "\t");
-			pw.print("\t" + String.format("%.02f", totalConsumptionM) + "\t" + totalCooperationM + "\t");
-			pw.println("\t" + String.format("%.02f", totalConsumptionR) + "\t" + totalCooperationR);
+			pw.print("\t\t" + String.format("%.02f", consumption_BAIXA_FI) + "\t" + totalCooperation_BAIXA_FI + "\t");
+			pw.print("\t" + String.format("%.02f", consumption_BAIXA_FC) + "\t" + totalCooperation_BAIXA_FC + "\t");
+			pw.println("\t" + String.format("%.02f", consumption_BAIXA_MC) + "\t" + totalCooperation_BAIXA_MC);
 
 			pw.close();
 
@@ -695,13 +680,13 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			System.out.println("Exception occurred:");
 			ioe.printStackTrace();
 		}
-
-		System.out.println("Total consumptionP: " + totalConsumptionP);
-		System.out.println("Total consumptionM: " + totalConsumptionM);
-		System.out.println("Total consumptionR: " + totalConsumptionR);
-		System.out.println("Total cooperationP: " + totalCooperationP);
-		System.out.println("Total cooperationM: " + totalCooperationM);
-		System.out.println("Total cooperationR: " + totalCooperationR);
+		/*
+		System.out.println("Total consumptionP: " + consumption_BAIXA_FI);
+		System.out.println("Total consumptionM: " + consumption_BAIXA_FC);
+		System.out.println("Total consumptionR: " + consumption_BAIXA_MC);
+		System.out.println("Total cooperationP: " + totalCooperation_BAIXA_FI);
+		System.out.println("Total cooperationM: " + totalCooperation_BAIXA_FC);
+		System.out.println("Total cooperationR: " + totalCooperation_BAIXA_MC);*/
 		
 	}
 }

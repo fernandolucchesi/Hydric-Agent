@@ -58,8 +58,10 @@ public class TransformationAgentBDI implements IDeliberately {
 	private int index;
 	@Belief
 	private boolean ready;
+	@Belief
+	private boolean drySeason;
 
-	/************************** Agente **************************/
+	/************************** AGENT **************************/
 	
 	@AgentCreated
 	public void created() {
@@ -89,20 +91,10 @@ public class TransformationAgentBDI implements IDeliberately {
 		}
 	}
 
-	/**************************** Objetivos **********************************/
+	/*********************** OBJECTIVES *************************/
 	
 	@Goal
 	public class Deliberate {
-
-	}
-
-	@Goal
-	public class UseWater {
-
-	}
-
-	@Goal
-	public class SaveWater {
 
 	}
 	
@@ -115,6 +107,79 @@ public class TransformationAgentBDI implements IDeliberately {
 	public class WasteRainySeason {
 
 	}
+
+	@Goal
+	public class SaveDrySeason {
+
+	}
+	
+	@Goal
+	public class WasteDrySeason {
+
+	}
+
+	@Goal
+	public class SaveRainyEducation {
+
+	}
+
+	@Goal
+	public class WasteRainyEducation {
+
+	}
+
+	@Goal
+	public class SaveDryEducation {
+
+	}
+	
+	@Goal
+	public class WasteDryEducation {
+
+	}
+	
+	@Goal
+	public class SaveRainyTax {
+
+	}
+
+	@Goal
+	public class WasteRainyTax {
+
+	}
+
+	@Goal
+	public class SaveDryTax {
+
+	}
+	
+	@Goal
+	public class WasteDryTax {
+
+	}
+
+	@Goal
+	public class SaveRainyEducationTax {
+
+	}
+
+	@Goal
+	public class WasteRainyEducationTax {
+
+	}
+
+	@Goal
+	public class SaveDryEducationTax {
+
+	}
+	
+	@Goal
+	public class WasteDryEducationTax {
+
+	}
+	
+	
+	/**************** METODOS AUX/CHECAGEM DE CRENÇAS ******************/
 	
 	public int getPositionX(){
 		return this.positionX;
@@ -127,9 +192,7 @@ public class TransformationAgentBDI implements IDeliberately {
 	public int getType(){
 		return this.type;
 	}
-	
-	/**************** METODOS AUX/CHECAGEM DE CRENÇAS *********************/
-	
+		
 	private synchronized int generateRandom()
 	{
 		Random rand = new Random();
@@ -142,111 +205,524 @@ public class TransformationAgentBDI implements IDeliberately {
 		else return false;
 	}
 	
-	
 	private boolean checkEducation()
 	{
 		if (ControllerPanel.getInstance().isR2Active()) return true;
 		else return false;		
 	}
 	
-	/************************** COGNIÇÃO *********************************/		
+	/************************** COGNIÇÃO *******************************/		
 	
 	public IFuture<Void> deliberate(boolean drySeason) {
 		
-		Printer.print("transformationAgent" + index + " is deliberating...");
-		
+		//Printer.print("transformationAgent" + index + " is deliberating...");
+		this.drySeason = drySeason;
 		int rand = generateRandom();
-		System.out.println("Numero Random: " + rand);
-		//CLASSE BAIXA
-		if (this.type > 0 && this.type <= 8) {
+		
+		/***************** INICIALIZACAO **************/
+		if (this.type > 0 && this.type <= 8) currentExploration = 16.2;
 			
-			currentExploration = 16.2;
+
+		/***************** PERMUTAÇÕES ***************/
+		//CHUVA
+		if (!this.drySeason && !checkEducation() && !checkTax())
+		{		
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 			
-			//CHUVA
-			if (!drySeason && !checkEducation() && !checkTax())
-			{
-				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new UseWater()).get();
-				else bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-			}
-			else ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 83) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+		}
+		//SECA
+		else if (this.drySeason && !checkEducation() && !checkTax())
+		{
+			
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 37) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+				
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 17) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+				
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 37) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+				
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 37) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
 				
 		}
+		//CHUVA + EDUCACAO
+		else if (drySeason==false && checkEducation() && !checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 71) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+					
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+				
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 71) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+				
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 71) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+		}
+		//SECA + EDUCACAO
+		else if (drySeason==true && checkEducation() && !checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 40) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+						
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+				
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 40) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+				
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 40) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+		}
+		//CHUVA + TAXA
+		else if (drySeason==false && !checkEducation() && checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+						
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 100) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			
+		}
+		//SECA + TAXA
+		else if (drySeason==true && !checkEducation() && checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 35) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+							
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+					
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 35) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+					
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 35) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			}
+		//CHUVA + EDUCACAO + TAXA
+		else if (drySeason==false && checkEducation() && checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 90) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+							
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 100) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+					
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 90) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+					
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 90) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
+		}
+		//SECA + EDUCACAO + TAXA
+		else //(drySeason==true && checkEducation() && checkTax())
+		{
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+							
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
+				if (rand < 67) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+					
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+					
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+		}
+		
 		return new Future<Void>();
 	}
 
-/******************************* AÇÕES *********************************/
-	private void hose()
+	/*************************** AÇÕES *********************************/
+	private void hoseSave()
 	{
-		//CLASSE BAIXA
-		if (this.type > 0 && this.type <= 8) {
-			this.currentExploration -= 0.774;
-		}
+		this.currentExploration -= 1.54;
+	}
+	
+	private void hoseWaste()
+	{
+		this.currentExploration += 1.54;
 	}
 	
 	private void washingMachine()
 	{
-		//CLASSE BAIXA
-		if (this.type > 0 && this.type <= 8) {
-			this.currentExploration -= 1.2;
-		}
+		this.currentExploration -= 1.2;
+	}
+	
+	private void washingMachineClothes()
+	{
+		this.currentExploration += 0.65;	
+	}
+	
+	private void washingMachineWaste()
+	{
+		if (checkTax())
+			this.currentExploration += 1.5;
+		else
+			this.currentExploration += 2.25;
+	}
+	
+	private void rainWater()
+	{
+		this.currentExploration -= 0.3;
 	}
 	
 	private void tap()
 	{
-		//CLASSE BAIXA
-		if (this.type > 0 && this.type <= 8) {
-			this.currentExploration -= 5.32;
-		}
+		this.currentExploration -= 4.4;
+	}
+	
+	private void longShower()
+	{
+		if(this.drySeason == true)
+			this.currentExploration += 3.2;
+		else
+			this.currentExploration += 2.25;
+	}
+	
+	private void shortShower()
+	{
+		if(this.drySeason == true)
+			this.currentExploration -= 3.2;
+		else
+			this.currentExploration -= 2.25;
 	}
 	
 	
 	
-/******************************* PLANOS *********************************/	
+	
+	/************************** PLANOS *********************************/	
+
+	/***** CHUVA *****/
 	
 	@Plan(trigger = @Trigger(goals = (SaveRainySeason.class)))
-	public void saveFewWater() 
+	public void saveRSWater() 
 	{
-		System.out.println("chegou aqui");
 		//CLASSE BAIXA
-		if (this.type > 0 && this.type <= 8) {
-			hose();
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseSave();
 			washingMachine();
 			tap();
 			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
-			else if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
-			else if (this.type == BAIXA_MC) this.type = BAIXA_MC_COOP;
-			else if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
+		}
+		else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			hoseSave();
+			washingMachine();
+			tap();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
 		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
-	@Plan(trigger = @Trigger(goals = (UseWater.class)))
-	public void useWaterNormally() {
-		Printer.print("transformationAgent" + index + " decided to use water normally.");
-		if (this.type == BAIXA_FI_COOP && this.currentExploration >= 16.2) {
-			this.type = BAIXA_FI;
-		} else if (this.type == BAIXA_FC_COOP && this.currentExploration >= 17.5){
-			this.type = BAIXA_FC;
-		} else if (this.type == BAIXA_MC_COOP && this.currentExploration >= 17.4){
-			this.type = BAIXA_MC;
+	@Plan(trigger = @Trigger(goals = (WasteRainySeason.class)))
+	public void wasteRSWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			longShower();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		} 
+		else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			longShower();
+			if (this.type == BAIXA_FC_COOP) this.type = BAIXA_FC;
 		}
-		ControllerPanel.getInstance().diminishWaterLevel(this.currentExploration);
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
+	/***** SECA *****/
 	
-	@Plan(trigger = @Trigger(goals = (SaveWater.class)))
-	public void useWaterSparingly() {
-		Printer.print("transformationAgent" + index + " decided to use water sparingly.");
-		if (this.type == BAIXA_FI) {
-			this.type = BAIXA_FI_COOP;
-		} else if (this.type == BAIXA_FC){
-			this.type = BAIXA_FC_COOP;
-		} else if (this.type == BAIXA_MC)
-		{
-			this.type = BAIXA_MC_COOP;
+	@Plan(trigger = @Trigger(goals = (SaveDrySeason.class)))
+	public void saveDSWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
 		}
-		ControllerPanel.getInstance().diminishWaterLevel(currentExploration);
-		ControllerPanel.getInstance().updateDataForReport(currentExploration, this.type);
+		else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteDrySeason.class)))
+	public void wasteDSWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseWaste();
+			longShower();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachineWaste();
+			hoseWaste();
+			if (this.type == BAIXA_FC_COOP) this.type = BAIXA_FC;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	/***** CHUVA + EDUCAÇÃO *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveRainyEducation.class)))
+	public void saveREWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseSave();
+			washingMachineClothes();
+			tap();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			hoseSave();
+			washingMachineClothes();
+			tap();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteRainyEducation.class)))
+	public void wasteREWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			longShower();
+			washingMachineWaste();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+		
+		}
+		
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	/***** SECA + EDUCAÇÃO *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveDryEducation.class)))
+	public void saveDEWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseSave();
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+			
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteDryEducation.class)))
+	public void wasteDEWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			longShower();
+			washingMachineWaste();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			longShower();
+			if (this.type == BAIXA_FC_COOP) this.type = BAIXA_FC;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	/***** CHUVA + TAX *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveRainyTax.class)))
+	public void saveRTWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachine();
+			tap();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			tap();
+			hoseSave();
+			shortShower();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteRainyTax.class)))
+	public void wasteRTWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseWaste();
+			washingMachineWaste();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		} else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	/***** SECA + TAX *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveDryTax.class)))
+	public void saveDTWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachine();
+			tap();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachine();
+			tap();
+			shortShower();
+			washingMachineClothes();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteDryTax.class)))
+	public void wasteDTWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			hoseWaste();
+			longShower();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			hoseWaste();
+			if (this.type == BAIXA_FC_COOP) this.type = BAIXA_FC;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+
+	/***** CHUVA + EDUCATION + TAX *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveRainyEducationTax.class)))
+	public void saveRETWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachineClothes();
+			rainWater();
+			tap();
+			shortShower();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachineClothes();
+			rainWater();
+			tap();
+			shortShower();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteRainyEducationTax.class)))
+	public void wasteRETWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachineWaste();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	/***** SECA + EDUCATION + TAX *****/
+	
+	@Plan(trigger = @Trigger(goals = (SaveDryEducationTax.class)))
+	public void saveDETWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			washingMachine();
+			tap();
+			if (this.type == BAIXA_FI) this.type = BAIXA_FI_COOP;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			washingMachine();
+			washingMachineClothes();
+			tap();
+			if (this.type == BAIXA_FC) this.type = BAIXA_FC_COOP;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
+	@Plan(trigger = @Trigger(goals = (WasteDryEducationTax.class)))
+	public void wasteDETWater() 
+	{
+		//CLASSE BAIXA
+		if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP) {
+			longShower();
+			if (this.type == BAIXA_FI_COOP) this.type = BAIXA_FI;
+		}else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP) {
+			longShower();
+			if (this.type == BAIXA_FC_COOP) this.type = BAIXA_FC;
+		}
+		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
+	}
+	
 }
