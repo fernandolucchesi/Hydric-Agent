@@ -100,6 +100,17 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	private final int BAIXA_SC = 7;
 	private final int BAIXA_SC_COOP = 8;
 	
+	private final int MEDIA_FC = 9;
+	private final int MEDIA_FC_COOP = 10;
+	private final int MEDIA_MC = 11;
+	private final int MEDIA_MC_COOP = 12;
+	private final int MEDIA_SC = 13;
+	private final int MEDIA_SC_COOP = 14;
+	
+	private final int ALTA_MC = 15;
+	private final int ALTA_MC_COOP = 16;
+	private final int ALTA_SC = 17;
+	private final int ALTA_SC_COOP = 18;
 	
 
 	public ControllerPanel() {
@@ -107,15 +118,20 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		currentStep = 0;
 		isR1active = false;
 		isR2active = false;
+		
+		waterLevelInfo = new JLabel(
+				"<html><p style=\"color:green;font-size:17px;padding-top:3px;padding-bottom:3px;\">Agent-Hydric</p></html>");
+	
+		
 		platformStatusInfo = "<html><p style=\"color:red;font-size:14px;padding-top:6px;\">" + "Platform is stopped"
 				+ "</p></html>";
 
+
+		
 		platformStatus = new JLabel(
 				"<html><p style=\"color:red;font-size:14px;padding-top:6px;\">" + platformStatusInfo + "</p></html>");
 
-		waterLevelInfo = new JLabel(
-				"<html><p style=\"color:green;font-size:14px;padding-top:3px;padding-bottom:3px;\">Water Level:"
-						+ waterLevel + "</p></html>");
+
 
 		currentStepInfo = new JLabel(
 				"<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Current Step:"
@@ -157,8 +173,8 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		configureGrid.setEnabled(true);
 
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.add(platformStatus);
 		this.add(waterLevelInfo);
+		this.add(platformStatus);
 		this.add(currentStepInfo);
 		this.add(isR1activeInfo);
 		this.add(Box.createRigidArea(new Dimension(5, 5)));

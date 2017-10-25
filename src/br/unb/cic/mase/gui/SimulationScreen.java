@@ -25,7 +25,21 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 	private final int BAIXA_SC = 7;
 	private final int BAIXA_SC_COOP = 8;
 	
-	private int[] states = { UNOCCUPIED, BAIXA_FI, BAIXA_FI_COOP, BAIXA_FC, BAIXA_FC_COOP, BAIXA_MC, BAIXA_MC_COOP, BAIXA_SC, BAIXA_SC_COOP};
+	private final int MEDIA_FC = 9;
+	private final int MEDIA_FC_COOP = 10;
+	private final int MEDIA_MC = 11;
+	private final int MEDIA_MC_COOP = 12;
+	private final int MEDIA_SC = 13;
+	private final int MEDIA_SC_COOP = 14;
+	
+	private final int ALTA_MC = 15;
+	private final int ALTA_MC_COOP = 16;
+	private final int ALTA_SC = 17;
+	private final int ALTA_SC_COOP = 18;
+	
+	private int[] states = { UNOCCUPIED, BAIXA_FI, BAIXA_FI_COOP, BAIXA_FC, BAIXA_FC_COOP, BAIXA_MC, BAIXA_MC_COOP, BAIXA_SC, BAIXA_SC_COOP,
+							 MEDIA_FC, MEDIA_FC_COOP, MEDIA_MC, MEDIA_MC_COOP, MEDIA_SC, MEDIA_SC_COOP,
+							 ALTA_MC, ALTA_MC_COOP, ALTA_SC, ALTA_SC_COOP};
 	private int columns;
 	private int rows;
 	private int height;
@@ -98,43 +112,31 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 						g.setColor(new Color(0, 0, 255));
 					}
 					// RENDA MEDIA
-					/*else if (spaces[i][j] == BAIXA_FI) {
-						g.setColor(new Color(0, 102, 0));
-					} else if (spaces[i][j] == BAIXA_FI_COOP) {
-						g.setColor(new Color(0, 255, 0));
-					} else if (spaces[i][j] == BAIXA_FC) {
+					else if (spaces[i][j] == MEDIA_FC) {
 						g.setColor(new Color(0, 0, 255));
-					} else if (spaces[i][j] == BAIXA_FC_COOP) {
+					} else if (spaces[i][j] == MEDIA_FC_COOP) {
 						g.setColor(new Color(102, 255, 255));
-					} else if (spaces[i][j] == BAIXA_MC) {
+					} else if (spaces[i][j] == MEDIA_MC) {
 						g.setColor(new Color(255, 0, 0));
-					} else if (spaces[i][j] == BAIXA_MC_COOP) {
+					} else if (spaces[i][j] == MEDIA_MC_COOP) {
 							g.setColor(new Color(255, 0, 255));
-					} else if (spaces[i][j] == BAIXA_SC) {
+					} else if (spaces[i][j] == MEDIA_SC) {
 						g.setColor(new Color(255, 0, 255));
-					} else if (spaces[i][j] == BAIXA_SC_COOP) {
+					} else if (spaces[i][j] == MEDIA_SC_COOP) {
 						g.setColor(new Color(255, 0, 255));
-					}*/
+					}
 					
 					// RENDA ALTA
-					/*
-					else if (spaces[i][j] == BAIXA_FI) {
+					
+					else if (spaces[i][j] == ALTA_MC) {
 						g.setColor(new Color(0, 102, 0));
-					} else if (spaces[i][j] == BAIXA_FI_COOP) {
+					} else if (spaces[i][j] == ALTA_MC_COOP) {
 						g.setColor(new Color(0, 255, 0));
-					} else if (spaces[i][j] == BAIXA_FC) {
+					} else if (spaces[i][j] == ALTA_SC) {
 						g.setColor(new Color(0, 0, 255));
-					} else if (spaces[i][j] == BAIXA_FC_COOP) {
+					} else if (spaces[i][j] == ALTA_SC_COOP) {
 						g.setColor(new Color(102, 255, 255));
-					} else if (spaces[i][j] == BAIXA_MC) {
-						g.setColor(new Color(255, 0, 0));
-					} else if (spaces[i][j] == BAIXA_MC_COOP) {
-							g.setColor(new Color(255, 0, 255));
-					} else if (spaces[i][j] == BAIXA_SC) {
-						g.setColor(new Color(255, 0, 255));
-					} else if (spaces[i][j] == BAIXA_SC_COOP) {
-						g.setColor(new Color(255, 0, 255));
-					}*/
+					}
 					
 					
 					

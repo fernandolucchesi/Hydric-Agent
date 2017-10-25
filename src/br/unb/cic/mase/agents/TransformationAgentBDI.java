@@ -25,15 +25,6 @@ import jadex.micro.annotation.*;
 @Service
 @ProvidedServices(@ProvidedService(type = IDeliberately.class))
 public class TransformationAgentBDI implements IDeliberately {
-	private final int BAIXA_FI = 1;
-	private final int BAIXA_FI_COOP = 2;
-	private final int BAIXA_FC = 3;
-	private final int BAIXA_FC_COOP = 4;
-	private final int BAIXA_MC = 5;
-	private final int BAIXA_MC_COOP = 6;
-	private final int BAIXA_SC = 7;
-	private final int BAIXA_SC_COOP = 8;
-
 	
 	@Agent
 	protected IInternalAccess thisAgent;
@@ -60,6 +51,28 @@ public class TransformationAgentBDI implements IDeliberately {
 	private boolean ready;
 	@Belief
 	private boolean drySeason;
+	
+	
+	private final int BAIXA_FI = 1;
+	private final int BAIXA_FI_COOP = 2;
+	private final int BAIXA_FC = 3;
+	private final int BAIXA_FC_COOP = 4;
+	private final int BAIXA_MC = 5;
+	private final int BAIXA_MC_COOP = 6;
+	private final int BAIXA_SC = 7;
+	private final int BAIXA_SC_COOP = 8;
+	
+	private final int MEDIA_FC = 9;
+	private final int MEDIA_FC_COOP = 10;
+	private final int MEDIA_MC = 11;
+	private final int MEDIA_MC_COOP = 12;
+	private final int MEDIA_SC = 13;
+	private final int MEDIA_SC_COOP = 14;
+	
+	private final int ALTA_MC = 15;
+	private final int ALTA_MC_COOP = 16;
+	private final int ALTA_SC = 17;
+	private final int ALTA_SC_COOP = 18;
 
 	/************************** AGENT **************************/
 	
@@ -75,7 +88,6 @@ public class TransformationAgentBDI implements IDeliberately {
 				.get("explorationLevel");
 		index = (Integer) thisAgent.getComponentFeature(IArgumentsResultsFeature.class).getArguments().get("index");
 		type = (Integer) thisAgent.getComponentFeature(IArgumentsResultsFeature.class).getArguments().get("type");
-//		currentExploration = explorationLevel;
 		
 		
 		ControllerPanel.getInstance().addTAIdentification(index, thisAgent.getComponentIdentifier());
@@ -219,10 +231,12 @@ public class TransformationAgentBDI implements IDeliberately {
 		this.drySeason = drySeason;
 		int rand = generateRandom();
 		
+		
 		/***************** INICIALIZACAO **************/
 		if (this.type > 0 && this.type <= 8) currentExploration = 16.2;
-			
+		else currentExploration = 17;	
 
+		
 		/***************** PERMUTAÇÕES ***************/
 		//CHUVA
 		if (!this.drySeason && !checkEducation() && !checkTax())
@@ -230,19 +244,48 @@ public class TransformationAgentBDI implements IDeliberately {
 			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
 				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+				
 			
 			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
 				if (rand < 83) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+				
 			
 			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
 				if (rand < 54) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+				
 			
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 79) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 62) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 69) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 74) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+			
 		}
+		
 		//SECA
 		else if (this.drySeason && !checkEducation() && !checkTax())
 		{
@@ -262,14 +305,37 @@ public class TransformationAgentBDI implements IDeliberately {
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 44) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-				
+			
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 20) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 30) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 29) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 12) bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
 		}
 		//CHUVA + EDUCACAO
 		else if (drySeason==false && checkEducation() && !checkTax())
 		{
 			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
 				if (rand < 71) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();		
 					
 			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
 				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
@@ -282,6 +348,32 @@ public class TransformationAgentBDI implements IDeliberately {
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			//MEDIA
+		
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 88) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 85) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 86) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+			
+			
 		}
 		//SECA + EDUCACAO
 		else if (drySeason==true && checkEducation() && !checkTax())
@@ -291,36 +383,85 @@ public class TransformationAgentBDI implements IDeliberately {
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
 						
 			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
-				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				if (rand < 60)  bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
 				
 			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
-				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				if (rand < 50)  bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
 				
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
+				if (rand < 33)  bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
 				if (rand < 33) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 57) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+			
+			
 		}
 		//CHUVA + TAXA
 		else if (drySeason==false && !checkEducation() && checkTax())
 		{
 			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP )
 				if (rand < 60) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 						
 			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP )
 				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 				
 			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP )
 				if (rand < 86) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 				
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 75) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			//MEDIA
 			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 72) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 57) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 70) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get(); //não existe.
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 0) bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 		}
 		//SECA + TAXA
 		else if (drySeason==true && !checkEducation() && checkTax())
@@ -340,7 +481,32 @@ public class TransformationAgentBDI implements IDeliberately {
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 0) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
-			}
+
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 0) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 19) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 29) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get(); 
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryTax()).get();
+			
+		}
 		//CHUVA + EDUCACAO + TAXA
 		else if (drySeason==false && checkEducation() && checkTax())
 		{
@@ -359,6 +525,31 @@ public class TransformationAgentBDI implements IDeliberately {
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 91) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get(); //não existe.
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 80) bdiFeature.dispatchTopLevelGoal(new SaveRainyEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteRainyEducationTax()).get();
+			
 			
 		}
 		//SECA + EDUCACAO + TAXA
@@ -379,6 +570,31 @@ public class TransformationAgentBDI implements IDeliberately {
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP )
 				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
 				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+
+			//MEDIA
+			
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+			
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+				if (rand < 50) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+			
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+				if (rand < 57) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+			
+			//ALTA
+			
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+				if (rand < 101) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+			
+			else //if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 67) bdiFeature.dispatchTopLevelGoal(new SaveDryEducationTax()).get();
+				else bdiFeature.dispatchTopLevelGoal(new WasteDryEducationTax()).get();
+			
 		}
 		
 		return new Future<Void>();
@@ -402,7 +618,7 @@ public class TransformationAgentBDI implements IDeliberately {
 	
 	private void washingMachineClothes()
 	{
-		this.currentExploration += 0.65;	
+		this.currentExploration -= 0.65;	
 	}
 	
 	private void washingMachineWaste()
@@ -439,9 +655,6 @@ public class TransformationAgentBDI implements IDeliberately {
 			this.currentExploration -= 2.25;
 	}
 	
-	
-	
-	
 	/************************** PLANOS *********************************/	
 
 	/***** CHUVA *****/
@@ -475,6 +688,51 @@ public class TransformationAgentBDI implements IDeliberately {
 			tap();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			shortShower();
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			hoseSave();
+			shortShower();
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			hoseSave();
+			washingMachine();
+			tap();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseSave();
+			washingMachineClothes();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}
+		
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -499,6 +757,40 @@ public class TransformationAgentBDI implements IDeliberately {
 			washingMachineWaste();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
 		}
+		
+		//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachineWaste();
+			longShower();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseWaste();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
+		}
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -533,6 +825,50 @@ public class TransformationAgentBDI implements IDeliberately {
 			tap();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			hoseSave();
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			hoseSave();
+			washingMachine();
+			shortShower();
+			tap();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			shortShower();
+			washingMachine();
+			tap();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			shortShower();
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -556,7 +892,42 @@ public class TransformationAgentBDI implements IDeliberately {
 		else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			hoseWaste();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			longShower();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
 		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			longShower();
+			hoseWaste();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			longShower();
+			hoseWaste();
+			washingMachineWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			longShower();
+			washingMachineWaste();	
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			longShower();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
+		}
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -587,6 +958,50 @@ public class TransformationAgentBDI implements IDeliberately {
 			tap();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			hoseSave(); 
+			tap();
+			washingMachineClothes();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			hoseSave(); 
+			tap();
+			rainWater();
+			shortShower();
+			washingMachine();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			tap();
+			rainWater();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			hoseSave();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -606,6 +1021,37 @@ public class TransformationAgentBDI implements IDeliberately {
 			if (this.type == BAIXA_MC_COOP) this.type = BAIXA_MC;
 		} else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			longShower();
+			washingMachineWaste();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
@@ -640,6 +1086,49 @@ public class TransformationAgentBDI implements IDeliberately {
 			hoseSave();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			hoseSave();
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			washingMachine();
+			shortShower();
+			hoseSave();
+			tap();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			washingMachine();
+			shortShower();
+			washingMachineClothes();
+			tap();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}		
 
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
@@ -662,6 +1151,39 @@ public class TransformationAgentBDI implements IDeliberately {
 		} else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			longShower();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			longShower();
+			hoseWaste();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			longShower();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			hoseWaste();
+			longShower();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			longShower();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseWaste();
+			longShower();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
@@ -692,6 +1214,50 @@ public class TransformationAgentBDI implements IDeliberately {
 			rainWater();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			tap();
+			washingMachineClothes();
+			shortShower();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			tap();
+			hoseSave();
+			washingMachine();
+			rainWater();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			tap();
+			washingMachine();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+//			tap();
+//			hoseSave();
+//			washingMachine();
+//			rainWater();
+//			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			tap();
+			washingMachine();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -713,6 +1279,40 @@ public class TransformationAgentBDI implements IDeliberately {
 		} else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			washingMachineWaste();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			longShower();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			longShower();
+			washingMachineWaste();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			hoseWaste();
+			longShower();
+			washingMachineWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+//			longShower();
+//			washingMachineWaste();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			longShower();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
@@ -741,6 +1341,49 @@ public class TransformationAgentBDI implements IDeliberately {
 		} else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			
 		}
+		//MEDIA
+
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			washingMachine();
+			washingMachineClothes();
+			shortShower();
+			tap();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			washingMachine();
+			hoseSave();
+			shortShower();
+			tap();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseSave();
+			shortShower();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -763,6 +1406,41 @@ public class TransformationAgentBDI implements IDeliberately {
 			longShower();
 			washingMachineWaste();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			hoseWaste();
+			longShower();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			longShower();
+			washingMachineWaste();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			hoseWaste();
+			longShower();
+			washingMachineWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			longShower();
+			washingMachineWaste();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseWaste();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
@@ -798,6 +1476,50 @@ public class TransformationAgentBDI implements IDeliberately {
 			hoseSave();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachineClothes();
+			tap();
+			shortShower();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			washingMachine();
+			hoseSave();
+			tap();
+			rainWater();
+			shortShower();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			hoseSave();
+			tap();
+			shortShower();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			
+			//if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}		
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -815,6 +1537,37 @@ public class TransformationAgentBDI implements IDeliberately {
 			if (this.type == BAIXA_MC_COOP) this.type = BAIXA_MC;
 		}else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP) {
 			
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			
+			//if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachineWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			
+			//if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			hoseWaste();
+			washingMachineWaste();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
@@ -845,6 +1598,51 @@ public class TransformationAgentBDI implements IDeliberately {
 			tap();
 			if (this.type == BAIXA_SC) this.type = BAIXA_SC_COOP;
 		}
+		//MEDIA
+		
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachine();
+			hoseSave();
+			tap();
+			if (this.type == MEDIA_FC) this.type = MEDIA_FC_COOP;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			tap();
+			shortShower();
+			if (this.type == MEDIA_MC) this.type = MEDIA_MC_COOP;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			shortShower();
+			if (this.type == MEDIA_SC) this.type = MEDIA_SC_COOP;
+		}
+		
+		//ALTA
+		
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			tap();
+			shortShower();
+			washingMachine();
+			hoseSave();
+			if (this.type == ALTA_MC) this.type = ALTA_MC_COOP;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			washingMachine();
+			tap();
+			washingMachineClothes();
+			shortShower();
+			if (this.type == ALTA_SC) this.type = ALTA_SC_COOP;
+		}		
+		
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
 	
@@ -867,6 +1665,40 @@ public class TransformationAgentBDI implements IDeliberately {
 			longShower();
 			washingMachineWaste();
 			if (this.type == BAIXA_SC_COOP) this.type = BAIXA_SC;
+		}//MEDIA
+		else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP )
+		{
+			washingMachineWaste();
+			longShower();
+			if (this.type == MEDIA_FC_COOP) this.type = MEDIA_FC;
+		}
+		
+		else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP )
+		{
+			longShower();
+			if (this.type == MEDIA_MC_COOP) this.type = MEDIA_MC;
+		}
+		
+		else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP )
+		{
+			washingMachineWaste();
+			longShower();
+			hoseWaste();
+			if (this.type == MEDIA_SC_COOP) this.type = MEDIA_SC;
+		}
+		
+		//ALTA
+		else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP )
+		{
+			longShower();
+			if (this.type == ALTA_MC_COOP) this.type = ALTA_MC;
+		}
+		
+		else if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+		{
+			longShower();
+			hoseWaste();
+			if (this.type == ALTA_SC_COOP) this.type = ALTA_SC;
 		}
 		ControllerPanel.getInstance().updateDataForReport(this.currentExploration, this.type);
 	}
