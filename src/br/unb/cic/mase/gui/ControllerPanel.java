@@ -76,17 +76,31 @@ public class ControllerPanel extends JPanel implements ActionListener {
 	private JButton configureGrid;
 
 	public int selectedPriority = 1;
+	private int flag = 0;
 
 	public double consumption_BAIXA_FI = 0;
 	public double consumption_BAIXA_FC = 0;
 	public double consumption_BAIXA_MC = 0;
 	public double consumption_BAIXA_SC = 0;
-
+	public double consumption_MEDIA_FC = 0;
+	public double consumption_MEDIA_MC = 0;
+	public double consumption_MEDIA_SC = 0;
+	public double consumption_ALTA_MC = 0;
+	public double consumption_ALTA_SC = 0;
 	
+
 	public int totalCooperation_BAIXA_FI = 0;
 	public int totalCooperation_BAIXA_FC = 0;
 	public int totalCooperation_BAIXA_MC = 0;
 	public int totalCooperation_BAIXA_SC = 0;
+	
+	public int totalCooperation_MEDIA_FC = 0;
+	public int totalCooperation_MEDIA_MC = 0;
+	public int totalCooperation_MEDIA_SC = 0;
+	
+	public int totalCooperation_ALTA_MC = 0;
+	public int totalCooperation_ALTA_SC = 0;
+
 	
 	public static int agentsCount = 0;
 	private static int barrier = 0;
@@ -623,18 +637,58 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		} else if (agentType == BAIXA_SC_COOP) {
 			consumption_BAIXA_SC += amount;
 			totalCooperation_BAIXA_SC++;
+		}//media
+		else if (agentType == MEDIA_FC) {
+			consumption_MEDIA_FC += amount;
+		} else if (agentType == MEDIA_FC_COOP) {
+			consumption_BAIXA_FC += amount;
+			totalCooperation_MEDIA_FC++;
+		} else if (agentType == MEDIA_MC) {
+			consumption_MEDIA_MC += amount;
+		} else if (agentType == MEDIA_MC_COOP) {
+			consumption_MEDIA_MC += amount;
+			totalCooperation_MEDIA_MC++;
+		} else if (agentType == MEDIA_SC) {
+			consumption_MEDIA_SC += amount;
+		} else if (agentType == MEDIA_SC_COOP) {
+			consumption_MEDIA_SC += amount;
+			totalCooperation_MEDIA_SC++;
+		}//alta
+		else if (agentType == ALTA_MC) {
+			consumption_ALTA_MC += amount;
+		} else if (agentType == ALTA_MC_COOP) {
+			consumption_ALTA_MC += amount;
+			totalCooperation_ALTA_MC++;
+		} else if (agentType == ALTA_SC) {
+			consumption_ALTA_SC += amount;
+		} else if (agentType == ALTA_SC_COOP) {
+			consumption_ALTA_SC += amount;
+			totalCooperation_ALTA_SC++;
 		}
-
+		
 		if (++barrier == agentsCount) {
 			generateReport();
+			
 			consumption_BAIXA_FI = 0;
 			consumption_BAIXA_FC = 0;
 			consumption_BAIXA_MC = 0;
 			consumption_BAIXA_SC = 0;
+			consumption_MEDIA_FC = 0;
+			consumption_MEDIA_MC = 0;
+			consumption_MEDIA_SC = 0;
+			consumption_ALTA_MC = 0;
+			consumption_ALTA_SC = 0;
+			
 			totalCooperation_BAIXA_FI = 0;
 			totalCooperation_BAIXA_FC = 0;
 			totalCooperation_BAIXA_MC = 0;
 			totalCooperation_BAIXA_SC = 0;
+			totalCooperation_MEDIA_FC = 0;
+			totalCooperation_MEDIA_MC = 0;
+			totalCooperation_MEDIA_SC = 0;
+			totalCooperation_ALTA_MC = 0;
+			totalCooperation_ALTA_SC = 0;
+			
 			barrier = 0;
 			nextStep.setEnabled(true);
 		}
@@ -651,7 +705,23 @@ public class ControllerPanel extends JPanel implements ActionListener {
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			// This will add a new line to the file content
+			
+			if (flag == 0) {
+				pw.println("Mês\t"
+						+ "\tB_FI\tCOOP"
+						+ "\tB_FC\tCOOP"
+						+ "\tB_MC\tCOOP"
+						+ "\tB_SC\tCOOP"
+						+ "\tM_FC\tCOOP"
+						+ "\tM_MC\tCOOP"
+						+ "\tM_SC\tCOOP"	
+						+ "\tA_MC\tCOOP"
+						+ "\tA_SC\tCOOP");
+				flag = 1;
+				pw.println("");
+			}
 			pw.println("");
+			
 			/*
 			 * Below three statements would add three mentioned Strings to the
 			 * file in new lines.
@@ -694,10 +764,21 @@ public class ControllerPanel extends JPanel implements ActionListener {
 				pw.print("Dez");
 				break;
 			}
+			
+			
+				
+				
 			pw.print("\t\t" + String.format("%.02f", consumption_BAIXA_FI) + "\t" + totalCooperation_BAIXA_FI + "\t");
 			pw.print(String.format("%.02f", consumption_BAIXA_FC) + "\t" + totalCooperation_BAIXA_FC + "\t");
 			pw.print(String.format("%.02f", consumption_BAIXA_MC) + "\t" + totalCooperation_BAIXA_MC + "\t");
-			pw.println(String.format("%.02f", consumption_BAIXA_SC) + "\t" + totalCooperation_BAIXA_SC);
+			pw.print(String.format("%.02f", consumption_BAIXA_SC) + "\t" + totalCooperation_BAIXA_SC + "\t");
+			
+			pw.print(String.format("%.02f", consumption_MEDIA_FC) + "\t" + totalCooperation_MEDIA_FC + "\t");
+			pw.print(String.format("%.02f", consumption_MEDIA_MC) + "\t" + totalCooperation_MEDIA_MC + "\t");
+			pw.print(String.format("%.02f", consumption_MEDIA_SC) + "\t" + totalCooperation_MEDIA_SC + "\t");
+			
+			pw.print(String.format("%.02f", consumption_ALTA_MC) + "\t" + totalCooperation_ALTA_MC + "\t");
+			pw.println(String.format("%.02f", consumption_ALTA_SC) + "\t" + totalCooperation_ALTA_SC);
 			pw.close();
 
 			System.out.println("Data successfully appended at the end of file");

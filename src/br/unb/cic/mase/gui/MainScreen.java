@@ -48,8 +48,8 @@ public class MainScreen extends JFrame {
 	}
 
 	public void configureCanvas()	 {
-		int rows = 10;
-		int columns = 10;
+		int rows = 21;
+		int columns = 15;
 
 		simulationScr = SimulationScreen.getInstance();
 		simulationScr.setColumnsAndRows(columns, rows);

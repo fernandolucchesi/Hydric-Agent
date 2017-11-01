@@ -123,7 +123,7 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 					} else if (spaces[i][j] == MEDIA_SC) {
 						g.setColor(new Color(255, 0, 255));
 					} else if (spaces[i][j] == MEDIA_SC_COOP) {
-						g.setColor(new Color(255, 0, 255));
+						g.setColor(new Color(255, 0, 100));
 					}
 					
 					// RENDA ALTA
