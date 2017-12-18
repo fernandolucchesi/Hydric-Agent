@@ -396,72 +396,6 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	public void RadioButton() {
-		handler = new RadioButtonHandler();
-
-		NTR = new JRadioButton("NTR", false);
-		NRT = new JRadioButton("NRT", false);
-		TNR = new JRadioButton("TNR", false);
-		TRN = new JRadioButton("TRN", false);
-		RNT = new JRadioButton("RNT", false);
-		RTN = new JRadioButton("RTN", false);
-
-		add(NTR);
-		add(NRT);
-		add(TNR);
-		add(TRN);
-		add(RNT);
-		add(RTN);
-
-		buttonGroup = new ButtonGroup();
-		buttonGroup.add(NTR);
-		buttonGroup.add(NRT);
-		buttonGroup.add(TNR);
-		buttonGroup.add(TRN);
-		buttonGroup.add(RNT);
-		buttonGroup.add(RTN);
-
-		NTR.addItemListener(handler);
-		NRT.addItemListener(handler);
-		TNR.addItemListener(handler);
-		TRN.addItemListener(handler);
-		RNT.addItemListener(handler);
-		RTN.addItemListener(handler);
-
-	}
-
-	private class RadioButtonHandler implements ItemListener {
-
-		public void itemStateChanged(ItemEvent event) {
-			if (NTR.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Neighbourhood -> Tax -> Rain");
-				selectedPriority = 1;
-			}
-			if (NRT.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Neighbourhood -> Rain -> Tax");
-				selectedPriority = 2;
-			}
-			if (TNR.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Tax -> Neighbourhood -> Rain");
-				selectedPriority = 3;
-			}
-			if (TRN.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Tax -> Rain -> Neighbourhood");
-				selectedPriority = 4;
-			}
-			if (RNT.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Rain -> Neighbourhood -> Tax");
-				selectedPriority = 5;
-			}
-			if (RTN.isSelected()) {
-				JOptionPane.showMessageDialog(null, "Priority Selected: Rain -> Tax -> Neighbourhood");
-				selectedPriority = 6;
-			}
-
-		}
-
-	}
-
 	private void configureGrid() {
 		int rows = Integer.parseInt(JOptionPane.showInputDialog("rows: "));
 		int columns = Integer.parseInt(JOptionPane.showInputDialog("columns: "));
@@ -540,27 +474,6 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		isR2activeInfo.setText(
 				"<html><p style=\"color:black;font-size:14px;padding-top:3px;padding-bottom:3px;\">Education active:"
 						+ isR2active + "</p></html>");
-		this.repaint();
-	}
-
-	public synchronized void diminishWaterLevel(double amount) {
-
-		waterLevel = waterLevel - amount;
-		// updateWaterLevelInfo();
-
-	}
-
-	public synchronized void increaseWaterLevel(double amount) {
-
-		waterLevel = waterLevel + amount;
-		updateWaterLevelInfo();
-
-	}
-
-	private void updateWaterLevelInfo() {
-		waterLevelInfo.setText(
-				"<html><p style=\"color:green;font-size:14px;padding-top:3px;padding-bottom:3px;\">Water Level:"
-						+ Math.round(waterLevel) + "</p></html>");
 		this.repaint();
 	}
 
@@ -796,4 +709,93 @@ public class ControllerPanel extends JPanel implements ActionListener {
 		System.out.println("Total cooperationR: " + totalCooperation_BAIXA_MC);*/
 		
 	}
+
+	public void RadioButton() {
+		handler = new RadioButtonHandler();
+
+		NTR = new JRadioButton("NTR", false);
+		NRT = new JRadioButton("NRT", false);
+		TNR = new JRadioButton("TNR", false);
+		TRN = new JRadioButton("TRN", false);
+		RNT = new JRadioButton("RNT", false);
+		RTN = new JRadioButton("RTN", false);
+
+		add(NTR);
+		add(NRT);
+		add(TNR);
+		add(TRN);
+		add(RNT);
+		add(RTN);
+
+		buttonGroup = new ButtonGroup();
+		buttonGroup.add(NTR);
+		buttonGroup.add(NRT);
+		buttonGroup.add(TNR);
+		buttonGroup.add(TRN);
+		buttonGroup.add(RNT);
+		buttonGroup.add(RTN);
+
+		NTR.addItemListener(handler);
+		NRT.addItemListener(handler);
+		TNR.addItemListener(handler);
+		TRN.addItemListener(handler);
+		RNT.addItemListener(handler);
+		RTN.addItemListener(handler);
+
+	}
+
+	private class RadioButtonHandler implements ItemListener {
+
+		public void itemStateChanged(ItemEvent event) {
+			if (NTR.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Neighbourhood -> Tax -> Rain");
+				selectedPriority = 1;
+			}
+			if (NRT.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Neighbourhood -> Rain -> Tax");
+				selectedPriority = 2;
+			}
+			if (TNR.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Tax -> Neighbourhood -> Rain");
+				selectedPriority = 3;
+			}
+			if (TRN.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Tax -> Rain -> Neighbourhood");
+				selectedPriority = 4;
+			}
+			if (RNT.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Rain -> Neighbourhood -> Tax");
+				selectedPriority = 5;
+			}
+			if (RTN.isSelected()) {
+				JOptionPane.showMessageDialog(null, "Priority Selected: Rain -> Tax -> Neighbourhood");
+				selectedPriority = 6;
+			}
+
+		}
+
+	}
+
+	public synchronized void diminishWaterLevel(double amount) {
+
+		waterLevel = waterLevel - amount;
+		// updateWaterLevelInfo();
+
+	}
+
+	public synchronized void increaseWaterLevel(double amount) {
+
+		waterLevel = waterLevel + amount;
+		updateWaterLevelInfo();
+
+	}
+
+	private void updateWaterLevelInfo() {
+		waterLevelInfo.setText(
+				"<html><p style=\"color:green;font-size:14px;padding-top:3px;padding-bottom:3px;\">Water Level:"
+						+ Math.round(waterLevel) + "</p></html>");
+		this.repaint();
+	}
+
+
 }

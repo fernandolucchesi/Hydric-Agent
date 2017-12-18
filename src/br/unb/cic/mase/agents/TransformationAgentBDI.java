@@ -101,7 +101,7 @@ public class TransformationAgentBDI implements IDeliberately {
 		}
 	}
 
-	/*********************** OBJECTIVES *************************/
+	/*********************** GOALS *************************/
 
 	@Goal
 	public class Deliberate {
@@ -225,326 +225,320 @@ public class TransformationAgentBDI implements IDeliberately {
 
 	public IFuture<Void> deliberate(boolean drySeason) {
 
-		// Printer.print("transformationAgent" + index + " is deliberating...");
 		this.drySeason = drySeason;
 		int rand = generateRandom();
 
 		/***************** INICIALIZACAO **************/
-		if (this.type > 0 && this.type <= 8)
-			currentExploration = 16.2;
-		else
-			currentExploration = 17;
+		if (this.type > 0 && this.type <= 8) currentExploration = 16.2;
+		else if (this.type > 8 && this.type <= 14) currentExploration = 17.5;
+		else currentExploration = 17.41;
 
-		// baixa 16.2 160 pessoas
-		// media 17.5 133 pessoas
-		// alta 17.41 17 pessoas
-
-		/***************** PERMUTAÇÕES ***************/
-		// CHUVA
-		if (!this.drySeason && !checkEducation() && !checkTax()) {
+		/***************** COMBINAÇÕES ***************/
+		// SECA
+		if (this.drySeason && !checkEducation() && !checkTax()) {
 			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
-				if (rand < 75)
+				if (rand < 14) //14% 
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 61) //38% 
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+			
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
+				if (rand < 14) //14%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 82) //17%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
+				if (rand < 3) //3%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 71) //28%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
+				if (rand < 12)
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 73) //26%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			// MEDIA
+
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
+				if (rand < 19) //18.75
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else //o que sobra nao economiza..  
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
+				if (rand < 6) //6%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 79) //20% 
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
+				if (rand < 15) //15%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 78) //21%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			// ALTA
+
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
+				if (rand < 25) //25%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 81) //18%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 9) //9%
+					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
+				else if (rand > 58) //41%
+					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
+
+		}
+
+		// CHUVA
+		else if (!this.drySeason && !checkEducation() && !checkTax()) {
+
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
+				if (rand < 57)
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 85) //14%
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
-				if (rand < 83)
+				if (rand < 50)
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 91) //8%
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
-				if (rand < 54)
+				if (rand < 22) //22
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 89) //10
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
-				if (rand < 79)
+				if (rand < 58)
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 87) //12
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			// MEDIA
 
 			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
-				if (rand < 62)
+				if (rand < 50)
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 80) //19
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
+				if (rand < 58)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else if (rand > 81) //18
+					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
 				if (rand < 69)
 					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
+				else if (rand > 81) //18
 					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
-
-			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
-				if (rand < 74)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
-
-			// ALTA
-
-			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
-				if (rand < 50)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
-
-			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
-			if (rand < 75)
-				bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
-			else
-				bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
-
-		}
-
-		// SECA
-		else if (this.drySeason && !checkEducation() && !checkTax()) {
-
-			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
-				if (rand < 37)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
-				if (rand < 17)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
-				if (rand < 10)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
-				if (rand < 44)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			// MEDIA
-
-			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
-				if (rand < 20)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
-				if (rand < 30)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
-				if (rand < 29)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			// ALTA
-
-			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
-				if (rand < 50)
-					bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-
-			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
-			if (rand < 12)
-				bdiFeature.dispatchTopLevelGoal(new SaveDrySeason()).get();
-			else
-				bdiFeature.dispatchTopLevelGoal(new WasteDrySeason()).get();
-		}
-		// CHUVA + EDUCACAO
-		else if (drySeason == false && checkEducation() && !checkTax()) {
-			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
-				if (rand < 71)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
-				if (rand < 94)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
-				if (rand < 88)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
-				if (rand < 96)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			// MEDIA
-
-			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
-				if (rand < 75)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
-				if (rand < 88)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
-				if (rand < 85)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			// ALTA
-
-			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
-				if (rand < 101)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
-			if (rand < 50)
-				bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
-			else
-				bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
-
-		}
-		// SECA + EDUCACAO
-		else if (drySeason == true && checkEducation() && !checkTax()) {
-			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
-				if (rand < 40)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
-				if (rand < 60)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
-				if (rand < 50)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
-				if (rand < 33)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			// MEDIA
-
-			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
-				if (rand < 33)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
-				if (rand < 57)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
-				if (rand < 50)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			// ALTA
-
-			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
-				if (rand < 101)
-					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
-			if (rand < 50)
-				bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
-			else
-				bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
-
-		}
-		// CHUVA + TAXA
-		else if (drySeason == false && !checkEducation() && checkTax()) {
-			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
-				if (rand < 50)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
-				if (rand < 94)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
-				if (rand < 86)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
-				if (rand < 75)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			// MEDIA
-
-			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
-				if (rand < 72)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
-				if (rand < 57)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
-
-			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
-				if (rand < 70)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 
 			// ALTA
 
 			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
 				if (rand < 25)
-					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-				else
-					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get(); // não
-																				// existe.
+					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else if (rand > 61) //38
+					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
 
 			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
-			if (rand < 0)
-				bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
-			else
-				bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+				if (rand < 36)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainySeason()).get();
+				else if (rand > 85) //14
+					bdiFeature.dispatchTopLevelGoal(new WasteRainySeason()).get();
+		}
+		// CHUVA + EDUCACAO
+		else if (drySeason == false && checkEducation() && !checkTax()) {
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
+				if (rand < 48)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 94) //5
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
+				if (rand < 47)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 96) //3
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
+				if (rand < 25)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 95) //4
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
+				if (rand < 68)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 93) //6
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			// MEDIA
+
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
+				if (rand < 50)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 86) //13
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
+				if (rand < 34)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 93) //6
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
+				if (rand < 49)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 92) //7
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			// ALTA
+
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
+				if (rand < 25)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 61) //38
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 32)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyEducation()).get();
+				else if (rand > 85) //14
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyEducation()).get();
+
+		}
+		
+		// SECA + EDUCACAO
+		else if (drySeason == true && checkEducation() && !checkTax()) {
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
+				if (rand < 10)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 89) //10
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
+				if (rand < 14)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 93) //6
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
+				if (rand < 4)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 90) //9
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
+				if (rand < 6)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 90) //9
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			// MEDIA
+
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
+				if (rand < 6)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 80) //19
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
+				if (rand < 6)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 85) //14 
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
+				if (rand < 10)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 89) //10
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			// ALTA
+
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
+				if (rand < 13)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 74) //25
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 9)
+					bdiFeature.dispatchTopLevelGoal(new SaveDryEducation()).get();
+				else if (rand > 85) //14
+					bdiFeature.dispatchTopLevelGoal(new WasteDryEducation()).get();
+
+		}
+		// CHUVA + TAXA
+		else if (drySeason == false && !checkEducation() && checkTax()) {
+			if (this.type == BAIXA_FI || this.type == BAIXA_FI_COOP)
+				if (rand < 57)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 89) //10
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			else if (this.type == BAIXA_FC || this.type == BAIXA_FC_COOP)
+				if (rand < 44)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 96) //3
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			else if (this.type == BAIXA_MC || this.type == BAIXA_MC_COOP)
+				if (rand < 52)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 92) //7
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			else if (this.type == BAIXA_SC || this.type == BAIXA_SC_COOP)
+				if (rand < 35)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 90) //9
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			// MEDIA
+
+			else if (this.type == MEDIA_FC || this.type == MEDIA_FC_COOP)
+				if (rand < 44)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 86) //13
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			else if (this.type == MEDIA_MC || this.type == MEDIA_MC_COOP)
+				if (rand < 14)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 93) //6 
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			else if (this.type == MEDIA_SC || this.type == MEDIA_SC_COOP)
+				if (rand < 48)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 95) //4
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
+
+			// ALTA
+
+			else if (this.type == ALTA_MC || this.type == ALTA_MC_COOP)
+				if (rand < 0 ) // nao vai rolar nunca
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else //nao vai rolar nunca
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get(); // não
+																				// existe.
+			else // if (this.type == ALTA_SC || this.type == ALTA_SC_COOP )
+				if (rand < 23)
+					bdiFeature.dispatchTopLevelGoal(new SaveRainyTax()).get();
+				else if (rand > 85) //14
+					bdiFeature.dispatchTopLevelGoal(new WasteRainyTax()).get();
 		}
 		// SECA + TAXA
 		else if (drySeason == true && !checkEducation() && checkTax()) {
@@ -886,8 +880,6 @@ public class TransformationAgentBDI implements IDeliberately {
 			if (this.drySeason == true) this.currentExploration += 1.95;
 			else this.currentExploration += 1.3;
 	}
-
-	
 
 	/************************** PLANOS *********************************/
 

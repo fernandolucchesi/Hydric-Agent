@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="br.unb.cic.mase.agents.IDeliberately" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/IDeliberately.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="186" width="214" x="1771" y="-124"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveRainyTax" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="121" x="1817" y="88"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveRainyEducationTax" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="191" x="1794" y="252"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="br.unb.cic.mase.gui.MainScreen" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/gui/MainScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="222" width="171" x="384" y="-377"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteDrySeason" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="140" x="1793" y="460"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteDryTax" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="118" x="1769" y="644"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="7" language="java" name="br.unb.cic.mase.agents" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="184" x="160" y="-377"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="8" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteRainyEducationTax" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="200" x="1815" y="784"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteDryEducationTax" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="184" x="2067" y="880"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteRainyTax" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="130" x="2287" y="960"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="br.unb.cic.mase.gui.ControllerPanel.RadioButtonHandler" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/gui/ControllerPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="150" width="216" x="792" y="671"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="br.unb.cic.mase.gui.ControllerPanel" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/gui/ControllerPanel.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1752" width="322" x="1107" y="-132"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteRainyEducation" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="175" x="2393" y="1104"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1266" width="337" x="2539" y="-377"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteDryEducation" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="159" x="2688" y="1124"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="br.unb.cic.mase.agents.PlatformFactory" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/PlatformFactory.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="150" width="190" x="1106" y="-377"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveDryTax" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="118" x="2895" y="1100"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="br.unb.cic.mase.gui.SimulationScreen" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/gui/SimulationScreen.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="978" width="261" x="352" y="80"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveRainyEducation" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="166" x="3033" y="976"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.Deliberate" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="118" x="3239" y="880"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveDrySeason" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="131" x="3337" y="716"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.WasteRainySeason" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="156" x="3288" y="520"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveDryEducationTax" 
+    project="mase-h" file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="132" width="175" x="3304" y="288"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <package id="24" language="java" name="br.unb.cic.mase.gui" project="mase-h" file="/mase-h/src/br/unb/cic/mase/gui" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="159" x="1838" y="-377"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="25" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveDryEducation" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="150" x="3299" y="120"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="br.unb.cic.mase.agents.TransformationAgentBDI.SaveRainySeason" project="mase-h" 
+    file="/mase-h/src/br/unb/cic/mase/agents/TransformationAgentBDI.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="132" width="147" x="3269" y="-44"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <nesting id="27">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="26"/>  
+  </nesting>  
+  <nesting id="28">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
+  </nesting>  
+  <nesting id="29">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="10"/>  
+  </nesting>  
+  <nesting id="30">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="20"/>  
+  </nesting>  
+  <nesting id="31">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="2"/>  
+  </nesting>  
+  <nesting id="32">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="19"/>  
+  </nesting>  
+  <nesting id="33">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="17"/>  
+  </nesting>  
+  <nesting id="34">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="35">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="36" name="controllerPan">        
+        <position height="0" width="0" x="636" y="-1012"/>      
+      </attribute>      
+      <multiplicity id="37" minimum="0" maximum="1">        
+        <position height="0" width="0" x="636" y="-1012"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="38">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="3"/>  
+  </nesting>  
+  <nesting id="39">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="23"/>  
+  </nesting>  
+  <association id="40">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="41" name="simulationScr">        
+        <position height="0" width="0" x="192" y="-800"/>      
+      </attribute>      
+      <multiplicity id="42" minimum="0" maximum="1">        
+        <position height="0" width="0" x="192" y="-800"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="43">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <nesting id="44">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="8"/>  
+  </nesting>  
+  <association id="45">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="46" name="instance">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="47" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="48">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="6"/>  
+  </nesting>  
+  <nesting id="49">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="9"/>  
+  </nesting>  
+  <association id="50">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="51" name="instance">        
+        <position height="0" width="0" x="636" y="-1012"/>      
+      </attribute>      
+      <multiplicity id="52" minimum="0" maximum="1">        
+        <position height="0" width="0" x="636" y="-1012"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="53">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="13"/>  
+  </nesting>  
+  <nesting id="54">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="21"/>  
+  </nesting>  
+  <nesting id="55">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="22"/>  
+  </nesting>  
+  <association id="56">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="57" name="instance">        
+        <position height="0" width="0" x="192" y="-800"/>      
+      </attribute>      
+      <multiplicity id="58" minimum="0" maximum="1">        
+        <position height="0" width="0" x="192" y="-800"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="59">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="5"/>  
+  </nesting>  
+  <association id="60">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="61" name="handler">        
+        <position height="0" width="0" x="321" y="-1962"/>      
+      </attribute>      
+      <multiplicity id="62" minimum="0" maximum="1">        
+        <position height="0" width="0" x="321" y="-1962"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <nesting id="63">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="25"/>  
+  </nesting>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

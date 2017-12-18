@@ -95,47 +95,48 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 					}
 					// RENDA BAIXA
 					else if (spaces[i][j] == BAIXA_FI) {
-						g.setColor(new Color(0,100,0));
+						g.setColor(new Color(60,0,0));
 					} else if (spaces[i][j] == BAIXA_FC) {
-						g.setColor(new Color(0,150,0));
+						g.setColor(new Color(100,0,0));
 					} else if (spaces[i][j] == BAIXA_MC) {
-						g.setColor(new Color(0,200,0));
+						g.setColor(new Color(160,0,0));
 					} else if (spaces[i][j] == BAIXA_SC) {
-						g.setColor(new Color(0,255,0));
+						g.setColor(new Color(255,0,0));
 					} else if (spaces[i][j] == BAIXA_FI_COOP) {
-						g.setColor(new Color(0, 0, 100));
+						g.setColor(new Color(0, 40, 0));
 					} else if (spaces[i][j] == BAIXA_FC_COOP) {
-							g.setColor(new Color(0, 0, 150));
+							g.setColor(new Color(0, 100, 0));
 					} else if (spaces[i][j] == BAIXA_MC_COOP) {
-						g.setColor(new Color(0, 0, 200));
+						g.setColor(new Color(0, 160, 0));
 					} else if (spaces[i][j] == BAIXA_SC_COOP) {
-						g.setColor(new Color(0, 0, 255));
+						g.setColor(new Color(0, 255, 0));
 					}
 					// RENDA MEDIA
 					else if (spaces[i][j] == MEDIA_FC) {
-						g.setColor(new Color(0, 0, 255));
+						g.setColor(new Color(100, 0, 100));
 					} else if (spaces[i][j] == MEDIA_FC_COOP) {
-						g.setColor(new Color(102, 255, 255));
+						g.setColor(new Color(0, 0, 110));
 					} else if (spaces[i][j] == MEDIA_MC) {
-						g.setColor(new Color(255, 0, 0));
+						g.setColor(new Color(150, 0, 150));
 					} else if (spaces[i][j] == MEDIA_MC_COOP) {
-							g.setColor(new Color(255, 0, 255));
+						g.setColor(new Color(0, 0, 175));	
 					} else if (spaces[i][j] == MEDIA_SC) {
 						g.setColor(new Color(255, 0, 255));
 					} else if (spaces[i][j] == MEDIA_SC_COOP) {
-						g.setColor(new Color(255, 0, 100));
+						g.setColor(new Color(0, 0, 255));
 					}
 					
 					// RENDA ALTA
 					
 					else if (spaces[i][j] == ALTA_MC) {
-						g.setColor(new Color(0, 102, 0));
+						g.setColor(new Color(150, 90, 0));
 					} else if (spaces[i][j] == ALTA_MC_COOP) {
-						g.setColor(new Color(0, 255, 0));
+						g.setColor(new Color(150, 150, 0));
 					} else if (spaces[i][j] == ALTA_SC) {
-						g.setColor(new Color(0, 0, 255));
+						g.setColor(new Color(255, 150, 0));
+						
 					} else if (spaces[i][j] == ALTA_SC_COOP) {
-						g.setColor(new Color(102, 255, 255));
+						g.setColor(new Color(255, 255, 0));
 					}
 					
 					
@@ -149,6 +150,51 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 			}
 		}
 	}
+	
+	public int[][] getSpaces() {
+		return spaces;
+	}
+	
+	public void printSpaces () {
+		System.out.println("rows = " + spaces[0].length);
+		System.out.println("columns = " + spaces.length);
+//		System.out.println("spaces[][] =  {");
+		
+		System.out.print("grid = [");
+		for (int i = 0; i < spaces.length; i++) {
+		    //System.out.print("{");
+			for (int j = 0; j < spaces[i].length; j++) {
+		        System.out.print(spaces[i][j]);
+		        if (j < spaces[i].length -1)
+		        	System.out.print(",");
+			}
+		   // System.out.print("}");
+		    if (i < spaces.length-1)
+		    {
+	        	System.out.print(",");
+		    }
+		}
+		System.out.print("]");
+		System.out.println();
+	}
+	
+	public void setSpaces(int i, int j, int type){
+		this.spaces[i][j]=type;
+	}
+	
+	public int getColumns() {
+		return columns;
+	}
+
+	public int getRows() {
+		return rows;
+	}
+
+	public void setColumnsAndRows(int columns, int rows) {
+		this.columns = columns;
+		this.rows = rows;
+	}
+
 	
 	public void mouseClicked(MouseEvent arg0) {
 		int mouseX = arg0.getX();
@@ -202,47 +248,5 @@ public class SimulationScreen extends JPanel implements MouseListener, Component
 
 	}
 
-	public void setColumnsAndRows(int columns, int rows) {
-		this.columns = columns;
-		this.rows = rows;
-	}
 
-	public int[][] getSpaces() {
-		return spaces;
-	}
-	
-	public void printSpaces () {
-		System.out.println("rows = " + spaces[0].length);
-		System.out.println("columns = " + spaces.length);
-//		System.out.println("spaces[][] =  {");
-		
-		System.out.print("grid = [");
-		for (int i = 0; i < spaces.length; i++) {
-		    //System.out.print("{");
-			for (int j = 0; j < spaces[i].length; j++) {
-		        System.out.print(spaces[i][j]);
-		        if (j < spaces[i].length -1)
-		        	System.out.print(",");
-			}
-		   // System.out.print("}");
-		    if (i < spaces.length-1)
-		    {
-	        	System.out.print(",");
-		    }
-		}
-		System.out.print("]");
-		System.out.println();
-	}
-	
-	public void setSpaces(int i, int j, int type){
-		this.spaces[i][j]=type;
-	}
-	
-	public int getColumns() {
-		return columns;
-	}
-
-	public int getRows() {
-		return rows;
-	}
 }
